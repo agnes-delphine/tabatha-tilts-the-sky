@@ -5,7 +5,6 @@ class_name CameraComponent
 @onready var camera: PhantomCamera3D = %PhantomCamera3D
 @onready var model: IzumiModel = %Model
 @onready var camera_focus: Node3D = %CameraFocus
-@onready var target_lock_camera_focus: Node3D = %TargetLockCameraFocus
 
 @export_category("Mouse Look")
 @export var look_distance := 4.0

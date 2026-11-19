@@ -1,7 +1,16 @@
 [gd_scene format=3 uid="uid://bvqwnm14p1ogf"]
 
 [ext_resource type="Script" uid="uid://gfsbbqbsg80" path="res://entities/common/components/hitbox/hitbox.gd" id="1_kuqc5"]
+[ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="2_148i6"]
+
+[sub_resource type="Resource" id="Resource_qpopc"]
+script = ExtResource("2_148i6")
+health_damage = 1
+poise_damage = 10
+damage_type = 0
+metadata/_custom_type_script = "uid://cdfq2i21dytg3"
 
 [node name="Hitbox" type="Area3D" unique_id=135541384]
 collision_layer = 4
 script = ExtResource("1_kuqc5")
+base_damage_instance = SubResource("Resource_qpopc")

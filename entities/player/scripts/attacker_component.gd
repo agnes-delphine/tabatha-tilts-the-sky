@@ -2,28 +2,48 @@ extends Node
 class_name AttackerComponent
 
 @onready var camera_component: CameraComponent = %CameraComponent
+@onready var camera_focus: Node3D = %CameraFocus
+
+@onready var attack_hitbox: Hitbox = %AttackHitbox
 @onready var attack_collider: CollisionShape3D = %AttackCollider
 @onready var attack_active_timer: Timer = %AttackActiveTimer
-@onready var attacker_state: AttackerStateComponent = %AttackerStateComponent
 
-@onready var camera_focus: Node3D = %CameraFocus
-@onready var target_lock_camera_focus: Node3D = %TargetLockCameraFocus
+@onready var attacker_state: AttackerStateComponent = %AttackerStateComponent
+@onready var attacker_charge: AttackerChargeComponent = %AttackerChargeComponent
+
+signal player_attacked()
 
 func _ready() -> void:
 	attack_collider.disabled = true
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("swing_blade"):
-		if attacker_state.is_state(attacker_state.AttackerState.IDLE):
-			return
-		attack_collider.disabled = false
-		attack_active_timer.start()
-		await attack_active_timer.timeout
-		attack_collider.disabled = true
-	
+	if event.is_action_pressed("swing_blade") \
+	and attacker_state.is_state(attacker_state.AttackerState.READY):
+		attack()
+		
 	if event.is_action_pressed("ready_blade"):
 		attacker_state.set_state(attacker_state.AttackerState.READY)
 		camera_component.set_look_at_target(camera_focus)
 	elif event.is_action_released("ready_blade"):
 		attacker_state.set_state(attacker_state.AttackerState.IDLE)
 		camera_component.set_look_at_target(null)
+
+func attack() -> void:
+	player_attacked.emit()
+	reset_damage()
+	attacker_charge.set_charge(0)
+	
+	if attacker_charge.is_power_attack():
+		attack_hitbox.damage_instance.poise_damage *= attacker_charge.poise_damage_multiplier
+	
+	attack_collider.disabled = false
+	attack_active_timer.start()
+	await attack_active_timer.timeout
+	attack_collider.disabled = true
+	
+	reset_damage()
+
+func reset_damage() -> void:
+	attack_hitbox.damage_instance.poise_damage = attack_hitbox.base_damage_instance.poise_damage
+	attack_hitbox.damage_instance.health_damage = attack_hitbox.base_damage_instance.health_damage
+	

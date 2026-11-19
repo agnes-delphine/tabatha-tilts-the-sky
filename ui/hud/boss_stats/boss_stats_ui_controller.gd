@@ -8,10 +8,6 @@ class_name BossStatsUIController
 	%HealthChunk3,
 ]
 
-@export var tween_duration := 0.5
-@export var transition_type := Tween.TransitionType.TRANS_CIRC
-@export var ease_type := Tween.EaseType.EASE_IN
-
 var poise_tween: Tween
 var health_tweens: Array[Tween] = []
 
@@ -45,7 +41,7 @@ func _update_poise(poise: float) -> void:
 	if poise_tween:
 		poise_tween.kill()
 
-	poise_tween = _tween_bar(poise_bar, poise)
+	poise_tween = TweenManager.tween_bar(poise_bar, poise)
 
 
 func _update_hud(bar: ProgressBar,
@@ -56,12 +52,4 @@ func _update_hud(bar: ProgressBar,
 	if tweens[index]:
 		tweens[index].kill()
 
-	tweens[index] = _tween_bar(bar, new_value)
-
-
-func _tween_bar(bar: ProgressBar, new_value: float) -> Tween:
-	var tween := get_tree().create_tween()
-	tween.set_ease(ease_type)
-	tween.set_trans(transition_type)
-	tween.tween_property(bar, "value", new_value, tween_duration)
-	return tween
+	tweens[index] = TweenManager.tween_bar(bar, new_value)

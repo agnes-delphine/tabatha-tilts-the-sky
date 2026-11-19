@@ -13,7 +13,11 @@ enum DamageType {
 @export var poise_damage : int
 @export var damage_type : DamageType = DamageType.ENEMY
 
-func _init(init_health_damage: int, init_poise_damage: int, init_damage_type: DamageType) -> void:
+func _init(
+	init_health_damage: int = 0,
+	init_poise_damage: int = 0,
+	init_damage_type: DamageType = DamageType.ENEMY
+) -> void:
 	health_damage = init_health_damage
 	poise_damage = init_poise_damage
 	damage_type = init_damage_type

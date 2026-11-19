@@ -23,6 +23,8 @@ PlayerManager="*uid://c4c2iuqc4guop"
 BossManager="*uid://dqjrg2uk17r3d"
 RotationManager="*uid://q0a00lwnjh3e"
 ArenaManager="*uid://di1enjwoki70b"
+ProgressBarManager="*uid://cucno7w4g76fq"
+TweenManager="*uid://cucno7w4g76fq"
 
 [display]
 
