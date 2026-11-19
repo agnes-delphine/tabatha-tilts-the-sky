@@ -16,24 +16,20 @@ class_name JumpComponent
 @export var coyote_time := 0.12
 @export var jump_buffer_time := 0.12
 @export var max_air_jumps := 1
-@export var max_wall_jumps := 3
 @export var wall_jump_horizontal_speed := 18.0
 
 var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
 var air_jumps_left : int
-var wall_jumps_left : int
 var is_double_jumping := false
 
 func _ready() -> void:
 	air_jumps_left = max_air_jumps
-	wall_jumps_left = max_wall_jumps
 
 func handle_jumping(on_floor: bool, delta: float) -> void:
 	if on_floor:
 		coyote_timer = coyote_time
 		air_jumps_left = max_air_jumps
-		wall_jumps_left = max_wall_jumps
 		is_double_jumping = false
 	else:
 		coyote_timer = max(coyote_timer - delta, 0.0)
@@ -83,26 +79,9 @@ func jump(on_floor: bool) -> void:
 
 		return
 
-	# Wall jump
-	if !on_floor and player.is_on_wall_only() and wall_jumps_left > 0:
-		wall_jump()
-		return
-
 	# Double jump
 	if !on_floor and air_jumps_left > 0:
 		player.velocity.y = double_jump_speed
 		air_jumps_left -= 1
 		jump_buffer_timer = 0.0
 		is_double_jumping = true
-
-func wall_jump() -> void:
-	var wall_normal := player.get_wall_normal()
-	var push_direction := Vector3(wall_normal.x, 0.0, wall_normal.z).normalized()
-	
-	player.velocity.x += push_direction.x * wall_jump_horizontal_speed
-	player.velocity.z += push_direction.z * wall_jump_horizontal_speed
-	player.velocity.y = wall_jump_horizontal_speed
-	
-	wall_jumps_left -= 1
-	jump_buffer_timer = 0.0
-	is_double_jumping = false

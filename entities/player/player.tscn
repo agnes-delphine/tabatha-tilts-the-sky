@@ -20,7 +20,6 @@
 [ext_resource type="Script" uid="uid://coidtqdley7x2" path="res://entities/player/scripts/attacker_state_component.gd" id="15_eyb6c"]
 [ext_resource type="Theme" uid="uid://bwf5joplin0n8" path="res://ui/themes/loading_bar.tres" id="16_3wlsy"]
 [ext_resource type="Theme" uid="uid://c7jdgppvo803a" path="res://ui/themes/label.tres" id="16_b2kln"]
-[ext_resource type="Script" uid="uid://0q00jtnn2m5e" path="res://entities/player/scripts/target_lock_component.gd" id="16_t1t22"]
 [ext_resource type="Script" uid="uid://7g528kcx1amd" path="res://ui/hud/scripts/stat_ui_controller.gd" id="16_yqrof"]
 [ext_resource type="FontFile" uid="uid://c17rw7ovb0awq" path="res://ui/assets/fonts/Cascadia_Mono/static/CascadiaMono-ExtraLight.ttf" id="21_ghoj8"]
 [ext_resource type="Script" uid="uid://cucw17ylmvrtx" path="res://ui/hud/boss_stats/boss_stats_ui_controller.gd" id="22_50fht"]
@@ -139,7 +138,7 @@ shape = SubResource("BoxShape3D_g4v7s")
 [node name="MovementSpeedModifierComponent" type="Node" parent="Components" unique_id=1677041648]
 script = ExtResource("3_wvtmh")
 
-[node name="MovementComponent" type="Node" parent="Components" unique_id=101337582 node_paths=PackedStringArray("player", "camera", "model", "player_state", "jump", "speed_modifier")]
+[node name="MovementComponent" type="Node" parent="Components" unique_id=101337582 node_paths=PackedStringArray("player", "camera", "model", "player_state", "jump", "speed_modifier", "attacker_state")]
 script = ExtResource("2_fkugw")
 player = NodePath("../..")
 camera = NodePath("../../CameraGroup/CameraPivot/PhantomCamera3D")
@@ -147,6 +146,7 @@ model = NodePath("../../Model")
 player_state = NodePath("../PlayerStateComponent")
 jump = NodePath("../JumpComponent")
 speed_modifier = NodePath("../MovementSpeedModifierComponent")
+attacker_state = NodePath("../AttackerComponent/AttackerStateComponent")
 
 [node name="JumpComponent" type="Node" parent="Components" unique_id=15762335 node_paths=PackedStringArray("player", "player_state", "slide")]
 script = ExtResource("4_7thud")
@@ -191,10 +191,6 @@ one_shot = true
 [node name="AttackerStateComponent" type="Node" parent="Components/AttackerComponent" unique_id=1338836051]
 unique_name_in_owner = true
 script = ExtResource("15_eyb6c")
-
-[node name="TargetLockComponent" type="Node" parent="Components" unique_id=68668660]
-unique_name_in_owner = true
-script = ExtResource("16_t1t22")
 
 [node name="CameraGroup" type="Node" parent="." unique_id=1406050078]
 

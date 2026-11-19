@@ -7,7 +7,7 @@ class_name MovementComponent
 @export var player_state: PlayerStateComponent
 @export var jump: JumpComponent
 @export var speed_modifier: MovementSpeedModifierComponent
-@onready var target_lock: TargetLockComponent = %TargetLockComponent
+@export var attacker_state : AttackerStateComponent
 
 @export_category("Movement")
 @export var base_speed := 20.0
@@ -93,7 +93,7 @@ func get_move_input(delta: float) -> void:
 
 		var target_yaw := atan2(dir.x, dir.z)
 
-		if !is_instance_valid(target_lock.target):
+		if !attacker_state.is_state(attacker_state.AttackerState.READY):
 			model.rotation.y = lerp_angle(
 				model.rotation.y,
 				target_yaw,
