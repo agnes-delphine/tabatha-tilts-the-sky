@@ -11,8 +11,8 @@ func has_health_remaining() -> bool:
 func get_health_percentage() -> float:
 	return get_resource_percentage()
 
-func damage(damage: DamageInstance) -> void:
-	decrease(damage.health_damage)
+func damage(instance: DamageInstance) -> void:
+	decrease(instance.health_damage)
 
 ## debug
 

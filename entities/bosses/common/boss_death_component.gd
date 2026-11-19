@@ -3,8 +3,10 @@ class_name BossDeathComponent
 
 @onready var boss : Node3D = $"../.."
 @onready var boss_moveset_controller: BossMovesetController = %BossMovesetController
+@onready var hurtbox: Hurtbox = %Hurtbox
 
 func _on_death() -> void:
 	super()
 	boss_moveset_controller.stop()
+	hurtbox.set_collider_state(false)
 	

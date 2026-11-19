@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj26qhvf2rrtc"
-path.s3tc="res://.godot/imported/snakeretopo3_Pants Base Color.png-70e86e56552f4b29ab25745ad0a0ab32.s3tc.ctex"
+uid="uid://dc6psgur1qonm"
+path.s3tc="res://.godot/imported/tabitha_Sheath Base Color.png-e3303fc846060d06c2a4c9f41d542708.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "c879547ff50e9603ab35852b8e3257c8"
+"md5": "61a5ce0a17aaafda8c45442cc41b48e2"
 }
 
 [deps]
 
-source_file="res://entities/player/assets/snakeretopo3_Pants Base Color.png"
-dest_files=["res://.godot/imported/snakeretopo3_Pants Base Color.png-70e86e56552f4b29ab25745ad0a0ab32.s3tc.ctex"]
+source_file="res://entities/player/assets/tabitha_Sheath Base Color.png"
+dest_files=["res://.godot/imported/tabitha_Sheath Base Color.png-e3303fc846060d06c2a4c9f41d542708.s3tc.ctex"]
 
 [params]
 

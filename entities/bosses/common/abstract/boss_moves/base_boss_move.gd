@@ -22,6 +22,7 @@ var tween : Tween
 
 ## Emitted when the boss does not meet the requirements to use the move.
 ## Causes the moveset controller to immediately pick a new one.
+@warning_ignore("unused_signal")
 signal InvalidMove()
 
 func _ready() -> void:
@@ -30,10 +31,10 @@ func _ready() -> void:
 func _on_boss_registered(_boss: Boss) -> void:
 	boss = _boss
 
-## To be overwritten.
+## What actually happens when the move is executed.
 func execute() -> void:
 	pass
 
-## To be overwritten.
+## This should return true if the move can be used at this current point in time.
 func is_valid() -> bool:
 	return true

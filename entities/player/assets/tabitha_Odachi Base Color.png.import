@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://emjsx2laxkik"
-path.s3tc="res://.godot/imported/snakeretopo3_Hair Base Color.png-406820b1b32ff6ca5d6d604e82b90e25.s3tc.ctex"
+uid="uid://brh60ooeddl2x"
+path.s3tc="res://.godot/imported/tabitha_Odachi Base Color.png-59d21fa7fd658a9c725b71ab52d37ebc.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "e25da93051f87b2cddccb5dcc6fcaefa"
+"md5": "86074952c81f08531b1c2c2143acbf5e"
 }
 
 [deps]
 
-source_file="res://entities/player/assets/snakeretopo3_Hair Base Color.png"
-dest_files=["res://.godot/imported/snakeretopo3_Hair Base Color.png-406820b1b32ff6ca5d6d604e82b90e25.s3tc.ctex"]
+source_file="res://entities/player/assets/tabitha_Odachi Base Color.png"
+dest_files=["res://.godot/imported/tabitha_Odachi Base Color.png-59d21fa7fd658a9c725b71ab52d37ebc.s3tc.ctex"]
 
 [params]
 

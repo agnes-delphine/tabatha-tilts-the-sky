@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="tilt-the-sky"
+config/name="Tabitha Tilts The Sky"
 run/main_scene="uid://btnddokgoef2l"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
@@ -22,6 +22,7 @@ LoadingManager="*uid://bgtti7snd6uci"
 PlayerManager="*uid://c4c2iuqc4guop"
 BossManager="*uid://dqjrg2uk17r3d"
 RotationManager="*uid://q0a00lwnjh3e"
+ArenaManager="*uid://di1enjwoki70b"
 
 [display]
 

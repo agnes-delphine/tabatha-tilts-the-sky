@@ -47,7 +47,7 @@ layout_mode = 2
 theme = ExtResource("2_ioe73")
 theme_override_font_sizes/normal_font_size = 128
 bbcode_enabled = true
-text = "[shake] TILT -THE- SKIES"
+text = "Tabatha Tilts The Sky!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -58,7 +58,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("2_ioe73")
-text = "START"
+text = "BEGIN"
 
 [node name="Options" type="Button" parent="Panel/MarginContainer/VBoxContainer" unique_id=1749295720]
 unique_name_in_owner = true

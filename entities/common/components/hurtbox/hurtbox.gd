@@ -3,6 +3,10 @@ class_name Hurtbox
 
 @export var healthComponent: HealthComponent
 @export var invincibility_timer: Timer
+@onready var collider: CollisionShape3D = $CollisionShape3D
+
+func set_collider_state(state: bool) -> void:
+	collider.disabled = !state
 
 signal hurtbox_hit(hit_by: Hitbox)
 

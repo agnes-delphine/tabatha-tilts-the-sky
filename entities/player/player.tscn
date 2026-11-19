@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_sglur"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_bls4j"]
 [ext_resource type="Script" uid="uid://br6kvug100k04" path="res://entities/player/scripts/movement_component.gd" id="2_fkugw"]
-[ext_resource type="PackedScene" uid="uid://bknagecykykub" path="res://entities/player/assets/izumi.scn" id="2_yqrof"]
+[ext_resource type="PackedScene" uid="uid://bnfkgub7ybp5e" path="res://entities/player/assets/tabatha.scn" id="2_yqrof"]
 [ext_resource type="Script" uid="uid://d24yf8eot58mj" path="res://entities/player/scripts/camera_component.gd" id="3_8fjmc"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_fkugw"]
 [ext_resource type="PackedScene" uid="uid://2uheb5mydivy" path="res://entities/common/components/hurtbox/hurtbox.tscn" id="3_we0b7"]
@@ -78,7 +78,6 @@ model = NodePath("Model")
 
 [node name="Collider" type="CollisionShape3D" parent="." unique_id=1982314308]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0007510185, -0.12859416, -0.004111171)
-visible = false
 shape = SubResource("CapsuleShape3D_g4v7s")
 
 [node name="Hurtbox" parent="." unique_id=923501376 node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_we0b7")]
@@ -86,18 +85,20 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.2743042, 0)
 collision_mask = 4
 healthComponent = NodePath("../Components/HealthComponent")
 
-[node name="Collider" type="CollisionShape3D" parent="Hurtbox" unique_id=416989177]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=416989177]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0007510185, 2.2720406, -0.004111171)
 shape = SubResource("CapsuleShape3D_we0b7")
 
 [node name="CameraFocus" type="Node3D" parent="." unique_id=1810792066]
 unique_name_in_owner = true
+visible = false
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="CameraFocus" unique_id=656603156]
 height = 0.378
 
 [node name="TargetLockCameraFocus" type="Node3D" parent="." unique_id=1956401037]
 unique_name_in_owner = true
+visible = false
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="TargetLockCameraFocus" unique_id=717721360]
 radius = 0.2
@@ -169,9 +170,8 @@ state = NodePath("../PlayerStateComponent")
 unique_name_in_owner = true
 script = ExtResource("3_8fjmc")
 
-[node name="PlayerStateComponent" type="Node" parent="Components" unique_id=58606190 node_paths=PackedStringArray("state_label")]
+[node name="PlayerStateComponent" type="Node" parent="Components" unique_id=58606190]
 script = ExtResource("4_qiwj3")
-state_label = NodePath("../../PlayerUI/TopPanel/MarginContainer/HBoxContainer/PlayerStateLabel")
 
 [node name="HealthComponent" type="Node" parent="Components" unique_id=1569244962]
 unique_name_in_owner = true
@@ -188,10 +188,9 @@ unique_name_in_owner = true
 wait_time = 0.2
 one_shot = true
 
-[node name="AttackerStateComponent" type="Node" parent="Components/AttackerComponent" unique_id=1338836051 node_paths=PackedStringArray("state_label")]
+[node name="AttackerStateComponent" type="Node" parent="Components/AttackerComponent" unique_id=1338836051]
 unique_name_in_owner = true
 script = ExtResource("15_eyb6c")
-state_label = NodePath("../../../PlayerUI/TopPanel/MarginContainer/HBoxContainer/AttackingStateLabel")
 
 [node name="TargetLockComponent" type="Node" parent="Components" unique_id=68668660]
 unique_name_in_owner = true
@@ -224,7 +223,6 @@ follow_mode = 5
 follow_target = NodePath("../../../CameraFocus")
 tween_resource = SubResource("Resource_8fjmc")
 follow_offset = Vector3(0, 5, 0)
-follow_damping = true
 follow_distance = 3.0
 auto_follow_distance = true
 vertical_rotation_offset = 1.5707963267948966
@@ -236,42 +234,6 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="PlayerUI" type="CanvasLayer" parent="." unique_id=1534802610]
 unique_name_in_owner = true
-
-[node name="TopPanel" type="Panel" parent="PlayerUI" unique_id=1823268565]
-custom_minimum_size = Vector2(600, 100)
-offset_bottom = 100.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_gx6sm")
-
-[node name="MarginContainer" type="MarginContainer" parent="PlayerUI/TopPanel" unique_id=207772620]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PlayerUI/TopPanel/MarginContainer" unique_id=852635642]
-layout_mode = 2
-
-[node name="PlayerStateLabel" type="RichTextLabel" parent="PlayerUI/TopPanel/MarginContainer/HBoxContainer" unique_id=192157568]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 48
-bbcode_enabled = true
-text = "State: 0"
-vertical_alignment = 1
-
-[node name="AttackingStateLabel" type="RichTextLabel" parent="PlayerUI/TopPanel/MarginContainer/HBoxContainer" unique_id=577998376]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 48
-bbcode_enabled = true
-text = "State: 0"
-vertical_alignment = 1
 
 [node name="PlayerStatsPanel" type="Panel" parent="PlayerUI" unique_id=157490109]
 custom_minimum_size = Vector2(500, 100)
