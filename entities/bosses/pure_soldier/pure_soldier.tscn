@@ -9,8 +9,11 @@
 [ext_resource type="Script" uid="uid://lg0megdaotlh" path="res://entities/bosses/common/boss_death_component.gd" id="5_y0olf"]
 [ext_resource type="Script" uid="uid://d3m60pwowjhsc" path="res://entities/bosses/common/poise/poise_component.gd" id="6_jp8mt"]
 [ext_resource type="Script" uid="uid://fskgl7ceqcrn" path="res://entities/bosses/common/boss_health/boss_health_component.gd" id="6_t241k"]
+[ext_resource type="Script" uid="uid://dcuuy1udockn1" path="res://entities/bosses/common/boss_projectile_source_component.gd" id="8_4opa4"]
+[ext_resource type="PackedScene" uid="uid://d00bqkqetrmda" path="res://entities/bosses/common/projectiles/base/basic_projectile.tscn" id="9_00blr"]
 [ext_resource type="Script" uid="uid://d4kiiyn31sg8x" path="res://entities/bosses/common/moves/move_to_player.gd" id="9_o5h7e"]
 [ext_resource type="Script" uid="uid://qp6w033rhofu" path="res://entities/bosses/common/moves/move_to_center.gd" id="10_u7lhy"]
+[ext_resource type="Script" uid="uid://bl18xlpmc0nat" path="res://entities/bosses/common/moves/fire_at_player.gd" id="12_tfxf7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 radius = 1.9521484
@@ -57,6 +60,11 @@ unique_name_in_owner = true
 script = ExtResource("6_t241k")
 max_resource = 3.0
 
+[node name="BossProjectileSourceComponent" type="Node" parent="Components" unique_id=1275618508]
+unique_name_in_owner = true
+script = ExtResource("8_4opa4")
+projectile_scene = ExtResource("9_00blr")
+
 [node name="BossMovesetController" type="Node" parent="." unique_id=1445894284]
 unique_name_in_owner = true
 script = ExtResource("4_1bgb0")
@@ -69,6 +77,10 @@ move_id = &"PureSoldierMoveToPlayer"
 script = ExtResource("10_u7lhy")
 move_id = &"PureSoldierMoveToArenaCenter"
 move_weight = 0.1
+
+[node name="FireAtPlayer" type="Node" parent="BossMovesetController" unique_id=577612473]
+script = ExtResource("12_tfxf7")
+move_id = &"BaseBossMoveFireAtPlayer"
 
 [node name="BossStateController" type="Node" parent="." unique_id=316893497]
 script = ExtResource("4_6ehsg")
