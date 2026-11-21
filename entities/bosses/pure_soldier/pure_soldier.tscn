@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://d3vkryj65wcsa" path="res://entities/bosses/pure_soldier/pure_soldier.gd" id="1_t241k"]
 [ext_resource type="PackedScene" uid="uid://c71r4s76o7tic" path="res://entities/common/scenes/sparks_emitter.tscn" id="2_adogm"]
+[ext_resource type="Script" uid="uid://gfsbbqbsg80" path="res://entities/common/components/hitbox/hitbox.gd" id="3_4dtoa"]
 [ext_resource type="Script" uid="uid://dlei2wuc8hlb7" path="res://entities/player/scripts/particles_on_hurt_component.gd" id="3_7np0a"]
 [ext_resource type="PackedScene" uid="uid://2uheb5mydivy" path="res://entities/common/components/hurtbox/hurtbox.tscn" id="3_550bg"]
+[ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="4_0p0dg"]
 [ext_resource type="Script" uid="uid://dj7n4yaimkok2" path="res://entities/bosses/common/boss_moveset_controller.gd" id="4_1bgb0"]
 [ext_resource type="Script" uid="uid://bi42xvwdhfhyq" path="res://entities/bosses/common/boss_state_controller.gd" id="4_6ehsg"]
 [ext_resource type="Script" uid="uid://lg0megdaotlh" path="res://entities/bosses/common/boss_death_component.gd" id="5_y0olf"]
@@ -17,10 +19,19 @@
 [ext_resource type="Script" uid="uid://cmdmsnw5r7cjb" path="res://entities/bosses/common/moves/fire_at_cardinals.gd" id="14_sdulr"]
 [ext_resource type="Script" uid="uid://bkugthnoqb2ag" path="res://entities/bosses/common/moves/fire_at_diagonals.gd" id="15_na6xo"]
 [ext_resource type="Script" uid="uid://b8nu6a2id8tan" path="res://entities/bosses/common/moves/fire_at_cardinals_and_diagonals.gd" id="16_ml2kn"]
+[ext_resource type="Script" uid="uid://d03bpt1to11w2" path="res://entities/bosses/common/moves/fun/leap_to_player.gd" id="17_cn2sg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 radius = 1.9521484
 height = 3.9042969
+
+[sub_resource type="Resource" id="Resource_owtkv"]
+script = ExtResource("4_0p0dg")
+health_damage = 10
+metadata/_custom_type_script = "uid://cdfq2i21dytg3"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kords"]
+radius = 1.892854
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5h7e"]
 albedo_color = Color(1, 0, 0, 1)
@@ -40,6 +51,16 @@ healthComponent = NodePath("../Components/BossHealthComponent")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=150151617]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2664671, 0)
 shape = SubResource("CapsuleShape3D_g4v7s")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=288140482]
+collision_layer = 4
+script = ExtResource("3_4dtoa")
+base_damage_instance = SubResource("Resource_owtkv")
+metadata/_custom_type_script = "uid://gfsbbqbsg80"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=999103261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6695051, 0)
+shape = SubResource("SphereShape3D_kords")
 
 [node name="Components" type="Node" parent="." unique_id=782427936]
 
@@ -108,6 +129,10 @@ move_id = &"BaseBossFireAtCardinalsAndDiagonals"
 move_weight = 0.0
 min_delay = 0.5
 max_delay = 1.5
+
+[node name="LeapToPlayer" type="Node" parent="BossMovesetController" unique_id=1881715163]
+script = ExtResource("17_cn2sg")
+move_id = &"WimbleLeapToPlayer"
 
 [node name="BossStateController" type="Node" parent="." unique_id=316893497]
 script = ExtResource("4_6ehsg")
