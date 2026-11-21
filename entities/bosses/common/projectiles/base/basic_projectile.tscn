@@ -14,6 +14,11 @@ radius = 0.49479136
 
 [node name="BasicProjectile" type="Node3D" unique_id=1297863229]
 script = ExtResource("1_2ogbd")
+lifetime = 10.0
+
+[node name="LifetimeTimer" type="Timer" parent="." unique_id=1693545850]
+unique_name_in_owner = true
+one_shot = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=78548540]
 

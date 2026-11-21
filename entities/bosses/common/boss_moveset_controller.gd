@@ -10,6 +10,8 @@ var _weights := PackedFloat32Array()
 
 var _acting := false
 
+var _last_move: BaseBossMove = null
+
 func _ready() -> void:
 	await get_tree().create_timer(1).timeout ## Delay to prevent races during testing.
 	_rng.randomize()
@@ -46,22 +48,31 @@ func _run_loop() -> void:
 
 func _pick_move() -> BaseBossMove:
 	var valid_weights := PackedFloat32Array()
-	for i in _moves.size():
-		valid_weights.append(_weights[i] if _moves[i].is_valid() else 0.0)
-	
 	var total := 0.0
-	for w in valid_weights:
+	for i in _moves.size():
+		var w := _weights[i] if _moves[i].is_valid() else 0.0
+		valid_weights.append(w)
 		total += w
 	if total <= 0.0:
 		return null
 	
-	return _moves[_rng.rand_weighted(valid_weights)]
+	if _last_move != null and !_last_move.repeatable:
+		var last_index := _moves.find(_last_move)
+		if last_index != -1:
+			var weight_without_last := total - valid_weights[last_index]
+			if weight_without_last > 0.0:
+				valid_weights[last_index] = 0.0
+	
+	var picked := _moves[_rng.rand_weighted(valid_weights)]
+	_last_move = picked
+	return picked
 
 func _execute(move: BaseBossMove) -> void:
 	if !move.is_valid():
 		await get_tree().process_frame
 		return
 	
+	print("Executing %s" % move.move_id)
 	move.execute()
 	move_started.emit(move)
 	await get_tree().create_timer(_rng.randf_range(move.min_delay, move.max_delay)).timeout

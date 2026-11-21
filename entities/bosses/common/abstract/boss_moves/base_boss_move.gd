@@ -13,6 +13,8 @@ class_name BaseBossMove
 @export var min_delay := 1.0
 ## The maximum duration (in seconds) the boss will pause for after using this attack.
 @export var max_delay := 3.0
+## Should this move be executed more than once in a row?
+@export var repeatable := false
 
 ## The boss using this move.
 var boss : Boss
