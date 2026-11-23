@@ -20,7 +20,6 @@
 [ext_resource type="Script" uid="uid://brlj2y6fhndkc" path="res://entities/player/scripts/attacker_component.gd" id="13_we0b7"]
 [ext_resource type="Script" uid="uid://coidtqdley7x2" path="res://entities/player/scripts/attacker_state_component.gd" id="15_eyb6c"]
 [ext_resource type="Theme" uid="uid://bwf5joplin0n8" path="res://ui/themes/loading_bar.tres" id="16_3wlsy"]
-[ext_resource type="Theme" uid="uid://c7jdgppvo803a" path="res://ui/themes/label.tres" id="16_b2kln"]
 [ext_resource type="Script" uid="uid://bxioduopna0mo" path="res://entities/player/scripts/attacker_charge_component.gd" id="16_wuv6x"]
 [ext_resource type="Script" uid="uid://7g528kcx1amd" path="res://ui/hud/scripts/stat_ui_controller.gd" id="16_yqrof"]
 [ext_resource type="FontFile" uid="uid://c17rw7ovb0awq" path="res://ui/assets/fonts/Cascadia_Mono/static/CascadiaMono-ExtraLight.ttf" id="21_ghoj8"]
@@ -53,6 +52,9 @@ bg_color = Color(0.09239706, 0.09239707, 0.092397, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3wlsy"]
 bg_color = Color(0.27459186, 0.6935326, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_50fht"]
+bg_color = Color(0.34108725, 0.6404022, 0.67417485, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghoj8"]
 bg_color = Color(0.12591082, 0.12591085, 0.12591076, 1)
@@ -149,7 +151,9 @@ unique_name_in_owner = true
 script = ExtResource("8_qpopc")
 
 [node name="StaminaComponent" type="Node" parent="Components" unique_id=1175043731]
+unique_name_in_owner = true
 script = ExtResource("12_gx6sm")
+increase_rate = 7.5
 
 [node name="CameraComponent" type="Node" parent="Components" unique_id=633656761]
 unique_name_in_owner = true
@@ -241,7 +245,7 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 unique_name_in_owner = true
 
 [node name="PlayerStatsPanel" type="Panel" parent="PlayerUI" unique_id=157490109]
-custom_minimum_size = Vector2(500, 100)
+custom_minimum_size = Vector2(400, 100)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -263,12 +267,13 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerUI/PlayerStatsPanel/MarginContainer" unique_id=1409982635]
 layout_mode = 2
-theme_override_constants/separation = 1
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="HealthBar" type="ProgressBar" parent="PlayerUI/PlayerStatsPanel/MarginContainer/VBoxContainer" unique_id=497501190]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 75)
+custom_minimum_size = Vector2(300, 25)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -276,22 +281,15 @@ theme = ExtResource("16_3wlsy")
 theme_override_styles/fill = SubResource("StyleBoxFlat_3wlsy")
 value = 100.0
 
-[node name="Label" type="Label" parent="PlayerUI/PlayerStatsPanel/MarginContainer/VBoxContainer/HealthBar" unique_id=97767563]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.35700002
-anchor_right = 0.643
-anchor_bottom = 0.25300002
-offset_left = -0.1000061
-offset_right = 0.099990845
-offset_bottom = 0.024997711
-grow_horizontal = 2
-size_flags_horizontal = 4
-theme = ExtResource("16_b2kln")
-theme_override_font_sizes/font_size = 12
-text = "INTEGRITY"
-horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
+[node name="StaminaBar" type="ProgressBar" parent="PlayerUI/PlayerStatsPanel/MarginContainer/VBoxContainer" unique_id=2067674005]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme = ExtResource("16_3wlsy")
+theme_override_styles/fill = SubResource("StyleBoxFlat_50fht")
+value = 100.0
 
 [node name="BossPanel" type="Panel" parent="PlayerUI" unique_id=127710228]
 custom_minimum_size = Vector2(100, 300)

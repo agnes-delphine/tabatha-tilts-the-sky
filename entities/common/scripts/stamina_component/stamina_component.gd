@@ -1,4 +1,4 @@
-extends ResourceComponent
+extends RegeneratingResourceComponent
 class_name StaminaComponent
 
 var stamina: float:

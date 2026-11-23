@@ -4,22 +4,16 @@ class_name StatsUIController
 @onready var health: HealthComponent = %HealthComponent
 @onready var health_bar: ProgressBar = %HealthBar
 
-@export var progress_tween_duration := 0.2
-
-var tween : Tween
+@onready var stamina: StaminaComponent = %StaminaComponent
+@onready var stamina_bar: ProgressBar = %StaminaBar
 
 func _ready() -> void:
 	health.resource_changed.connect(_on_health_changed)
-	health.initialize_resource()
+	stamina.resource_changed.connect(_on_stamina_changed)
+	
 
 func _on_health_changed(update: ResourceUpdate) -> void:
-	if tween:
-		tween.kill()
-	
-	tween = get_tree().create_tween()
-	tween.tween_property(
-		health_bar, 
-		"value", 
-		update.current_value, 
-		progress_tween_duration
-	)
+	TweenManager.tween_bar(health_bar, update.current_value)
+
+func _on_stamina_changed(update: ResourceUpdate) -> void:
+	TweenManager.tween_bar(stamina_bar, update.current_value)
