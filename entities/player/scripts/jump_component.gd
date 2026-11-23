@@ -64,9 +64,7 @@ func jump(on_floor: bool) -> void:
 
 	# Ground / Coyote jump
 	if coyote_timer > 0.0:
-		var was_sliding := player_state.is_state(
-			PlayerStateComponent.PlayerState.SLIDING
-		)
+		var was_sliding := slide.is_sliding
 
 		player.velocity.y = jump_speed
 

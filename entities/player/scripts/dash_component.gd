@@ -42,9 +42,6 @@ func try_dash() -> void:
 	if is_dashing:
 		return
 
-	if player_state.is_state(PlayerStateComponent.PlayerState.BUSY):
-		return
-
 	var direction := get_dash_direction()
 
 	if direction == Vector3.ZERO:

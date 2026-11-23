@@ -17,16 +17,13 @@ func _ready() -> void:
 	attack_collider.disabled = true
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("swing_blade") \
-	and attacker_state.is_state(attacker_state.AttackerState.READY):
-		attack()
-		
 	if event.is_action_pressed("ready_blade"):
 		attacker_state.set_state(attacker_state.AttackerState.READY)
 		camera_component.set_look_at_target(camera_focus)
 	elif event.is_action_released("ready_blade"):
 		attacker_state.set_state(attacker_state.AttackerState.IDLE)
 		camera_component.set_look_at_target(null)
+		attack()
 
 func attack() -> void:
 	player_attacked.emit()

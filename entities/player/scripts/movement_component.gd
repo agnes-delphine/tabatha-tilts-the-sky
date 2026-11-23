@@ -5,7 +5,6 @@ class_name MovementComponent
 @export var camera: PhantomCamera3D
 @export var model: Node3D
 @export var player_state: PlayerStateComponent
-@export var jump: JumpComponent
 @export var speed_modifier: MovementSpeedModifierComponent
 @export var attacker_state : AttackerStateComponent
 
@@ -46,11 +45,8 @@ func _on_movement_speed_modifiers_updated(modifiers: Dictionary) -> void:
 	current_speed = base_speed * total_modifier
 	
 func _physics_process(delta: float) -> void:
-	jump.handle_jumping(
-		player.is_on_floor(),
-		delta
-	)
-
+	apply_gravity(delta)
+	
 	if player_state.is_state(
 		PlayerStateComponent.PlayerState.IDLE
 	):
@@ -93,6 +89,7 @@ func get_move_input(delta: float) -> void:
 
 		var target_yaw := atan2(dir.x, dir.z)
 
+		## Model follows the cursor if charging attack
 		if !attacker_state.is_state(attacker_state.AttackerState.READY):
 			model.rotation.y = lerp_angle(
 				model.rotation.y,
@@ -167,3 +164,8 @@ func apply_air_control(
 		)
 
 	return velocity
+
+func apply_gravity(delta: float) -> void:
+	var gravity = player.get_gravity()
+	if !player.is_on_floor():
+		player.velocity += gravity * delta

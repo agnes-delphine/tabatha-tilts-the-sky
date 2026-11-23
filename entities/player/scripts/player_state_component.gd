@@ -3,8 +3,7 @@ class_name PlayerStateComponent
 
 enum PlayerState {
 	IDLE,
-	BUSY,
-	SLIDING,
+	BUSY
 }
 
 func _ready() -> void:

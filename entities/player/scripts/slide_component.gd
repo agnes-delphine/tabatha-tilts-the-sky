@@ -21,14 +21,12 @@ class_name SlideComponent
 @export var steering_strength := 4.0
 @export var steering_drag := 8.0
 
-@export_category("Jumping")
-@export var jump_boost := 4.0
-
 var slide_direction := Vector3.ZERO
 var slide_speed := 0.0
 var slide_timer := 0.0
 
 var was_on_floor := false
+var is_sliding := false
 
 func _physics_process(delta: float) -> void:
 	var on_floor := player.is_on_floor()
@@ -36,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	if (
 		Input.is_action_just_pressed("slide")
 		and on_floor
-		and not is_sliding()
+		and not is_sliding
 	):
 		start_slide()
 
@@ -44,11 +42,11 @@ func _physics_process(delta: float) -> void:
 		on_floor
 		and not was_on_floor
 		and Input.is_action_pressed("slide")
-		and not is_sliding()
+		and not is_sliding
 	):
 		start_slide()
 
-	if is_sliding():
+	if is_sliding:
 		if not on_floor:
 			was_on_floor = on_floor
 			return
@@ -60,12 +58,6 @@ func _physics_process(delta: float) -> void:
 			stop_slide()
 
 	was_on_floor = on_floor
-
-func is_sliding() -> bool:
-	return state.is_state(
-		PlayerStateComponent.PlayerState.SLIDING
-	)
-
 
 func start_slide() -> void:
 	if not player.is_on_floor():
@@ -80,9 +72,7 @@ func start_slide() -> void:
 	if horizontal_velocity.length_squared() < 0.01:
 		return
 
-	state.set_state(
-		PlayerStateComponent.PlayerState.SLIDING
-	)
+	is_sliding = true
 
 	slide_speed = clampf(
 		horizontal_velocity.length() + slide_start_boost,
@@ -235,37 +225,8 @@ func get_steering_input() -> Vector3:
 
 	return direction.normalized()
 
-
-func get_slide_jump_velocity() -> Vector3:
-	var speed_ratio := clampf(
-		slide_speed / maximum_slide_speed,
-		0.0,
-		1.0
-	)
-
-	var forward_boost := (
-		slide_direction
-		* jump_boost
-		* speed_ratio
-	)
-
-	var upward_boost := Vector3.UP * jump_boost
-
-	return forward_boost + upward_boost
-
-
-func apply_slide_jump() -> Vector3:
-	var jump_velocity := get_slide_jump_velocity()
-
-	stop_slide()
-
-	return jump_velocity
-
-
 func stop_slide() -> void:
-	if not is_sliding():
+	if not is_sliding:
 		return
 
-	state.set_state(
-		PlayerStateComponent.PlayerState.IDLE
-	)
+	is_sliding = false

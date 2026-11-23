@@ -3,6 +3,7 @@ class_name Hurtbox
 
 @export var healthComponent: HealthComponent
 @export var invincibility_timer: Timer
+@export var player_dodge: PlayerDodgeComponent
 @onready var collider: CollisionShape3D = $CollisionShape3D
 
 func set_collider_state(state: bool) -> void:
@@ -14,7 +15,10 @@ var hitboxes_hit: Array[Hitbox] = []
 
 func _on_area_entered(area: Area3D) -> void:
 	if area is Hitbox:
-		_try_damage(area)
+		if is_instance_valid(player_dodge) and player_dodge.try_dodge(area):
+			return ## dodge sfx?
+		else:
+			_try_damage(area)
 
 func _on_area_exited(area: Area3D) -> void:
 	if area is Hitbox:

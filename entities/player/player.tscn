@@ -9,12 +9,12 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_fkugw"]
 [ext_resource type="PackedScene" uid="uid://2uheb5mydivy" path="res://entities/common/components/hurtbox/hurtbox.tscn" id="3_we0b7"]
 [ext_resource type="Script" uid="uid://bhh1j88xsf1nh" path="res://entities/player/scripts/movement_speed_modifier_component.gd" id="3_wvtmh"]
-[ext_resource type="Script" uid="uid://bpanulkmce1k5" path="res://entities/player/scripts/jump_component.gd" id="4_7thud"]
 [ext_resource type="Script" uid="uid://bs7t2n2cah5ix" path="res://entities/player/scripts/player_state_component.gd" id="4_qiwj3"]
 [ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="5_qpopc"]
 [ext_resource type="Script" uid="uid://fk5wh71mvugw" path="res://entities/player/scripts/slide_component.gd" id="6_bectd"]
 [ext_resource type="Script" uid="uid://4c1vfxmatr5a" path="res://entities/player/scripts/dash_component.gd" id="6_j3ovn"]
 [ext_resource type="PackedScene" uid="uid://bvqwnm14p1ogf" path="res://entities/common/components/hitbox/hitbox.tscn" id="6_t1t22"]
+[ext_resource type="Script" uid="uid://cxtox5wjb06pt" path="res://entities/player/scripts/player_dodge_component.gd" id="8_qpopc"]
 [ext_resource type="Script" uid="uid://dk28pf187i2k7" path="res://entities/common/scripts/health_component/health_component.gd" id="11_afbqv"]
 [ext_resource type="Script" uid="uid://jgceaiyogkns" path="res://entities/common/scripts/stamina_component/stamina_component.gd" id="12_gx6sm"]
 [ext_resource type="Script" uid="uid://brlj2y6fhndkc" path="res://entities/player/scripts/attacker_component.gd" id="13_we0b7"]
@@ -26,7 +26,6 @@
 [ext_resource type="FontFile" uid="uid://c17rw7ovb0awq" path="res://ui/assets/fonts/Cascadia_Mono/static/CascadiaMono-ExtraLight.ttf" id="21_ghoj8"]
 [ext_resource type="Script" uid="uid://cucw17ylmvrtx" path="res://ui/hud/boss_stats/boss_stats_ui_controller.gd" id="22_50fht"]
 [ext_resource type="Theme" uid="uid://bf8b1dj0w31ia" path="res://ui/themes/boss_hp.tres" id="22_t1t22"]
-[ext_resource type="Script" uid="uid://dh7h1w6cotva0" path="res://ui/hud/scripts/attack_charge_bar.gd" id="25_50fht"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 radius = 0.23388672
@@ -89,10 +88,11 @@ model = NodePath("Model")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0007510185, -0.12859416, -0.004111171)
 shape = SubResource("CapsuleShape3D_g4v7s")
 
-[node name="Hurtbox" parent="." unique_id=923501376 node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_we0b7")]
+[node name="Hurtbox" parent="." unique_id=923501376 node_paths=PackedStringArray("healthComponent", "player_dodge") instance=ExtResource("3_we0b7")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.2743042, 0)
 collision_mask = 4
 healthComponent = NodePath("../Components/HealthComponent")
+player_dodge = NodePath("../Components/HealthComponent/PlayerDodgeComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=416989177]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0007510185, 2.2720406, -0.004111171)
@@ -137,11 +137,16 @@ shape = SubResource("BoxShape3D_g4v7s")
 [node name="Components" type="Node" parent="." unique_id=1563754300]
 
 [node name="PlayerStateComponent" type="Node" parent="Components" unique_id=58606190]
+unique_name_in_owner = true
 script = ExtResource("4_qiwj3")
 
 [node name="HealthComponent" type="Node" parent="Components" unique_id=1569244962]
 unique_name_in_owner = true
 script = ExtResource("11_afbqv")
+
+[node name="PlayerDodgeComponent" type="Node" parent="Components/HealthComponent" unique_id=526880437]
+unique_name_in_owner = true
+script = ExtResource("8_qpopc")
 
 [node name="StaminaComponent" type="Node" parent="Components" unique_id=1175043731]
 script = ExtResource("12_gx6sm")
@@ -150,32 +155,27 @@ script = ExtResource("12_gx6sm")
 unique_name_in_owner = true
 script = ExtResource("3_8fjmc")
 
-[node name="MovementComponent" type="Node" parent="Components" unique_id=101337582 node_paths=PackedStringArray("player", "camera", "model", "player_state", "jump", "speed_modifier", "attacker_state")]
+[node name="MovementComponent" type="Node" parent="Components" unique_id=101337582 node_paths=PackedStringArray("player", "camera", "model", "player_state", "speed_modifier", "attacker_state")]
 script = ExtResource("2_fkugw")
 player = NodePath("../..")
 camera = NodePath("../../CameraGroup/CameraPivot/PhantomCamera3D")
 model = NodePath("../../Model")
 player_state = NodePath("../PlayerStateComponent")
-jump = NodePath("JumpComponent")
 speed_modifier = NodePath("MovementSpeedModifierComponent")
 attacker_state = NodePath("../AttackerComponent/AttackerStateComponent")
 
 [node name="MovementSpeedModifierComponent" type="Node" parent="Components/MovementComponent" unique_id=1677041648]
 script = ExtResource("3_wvtmh")
 
-[node name="JumpComponent" type="Node" parent="Components/MovementComponent" unique_id=15762335 node_paths=PackedStringArray("player", "player_state", "slide")]
-script = ExtResource("4_7thud")
-player = NodePath("../../..")
-player_state = NodePath("../../PlayerStateComponent")
-slide = NodePath("../SlideComponent")
-
 [node name="DashComponent" type="Node" parent="Components/MovementComponent" unique_id=1179099752 node_paths=PackedStringArray("player", "camera", "player_state")]
+unique_name_in_owner = true
 script = ExtResource("6_j3ovn")
 player = NodePath("../../..")
 camera = NodePath("../../../CameraGroup/CameraPivot/PhantomCamera3D")
 player_state = NodePath("../../PlayerStateComponent")
 
 [node name="SlideComponent" type="Node" parent="Components/MovementComponent" unique_id=785443510 node_paths=PackedStringArray("player", "camera", "state")]
+unique_name_in_owner = true
 script = ExtResource("6_bectd")
 player = NodePath("../../..")
 camera = NodePath("../../../CameraGroup/CameraPivot/Camera3D")
@@ -364,18 +364,5 @@ show_percentage = false
 
 [node name="StatUIController" type="Node" parent="PlayerUI" unique_id=743968024]
 script = ExtResource("16_yqrof")
-
-[node name="AttackChargeBar" type="ProgressBar" parent="PlayerUI" unique_id=40106311]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 15)
-anchors_preset = -1
-anchor_left = 0.453125
-anchor_top = 0.41111112
-anchor_right = 0.53124994
-anchor_bottom = 0.4324074
-offset_right = 6.1035156e-05
-theme = ExtResource("16_3wlsy")
-script = ExtResource("25_50fht")
-metadata/_edit_use_anchors_ = true
 
 [connection signal="timeout" from="Components/AttackerComponent/AttackerChargeComponent/ChargerTimer" to="Components/AttackerComponent/AttackerChargeComponent" method="_on_charger_timer_timeout"]

@@ -3,7 +3,6 @@ class_name AttackerChargeComponent
 
 @onready var attacker: AttackerComponent = %AttackerComponent
 @onready var attacker_state: AttackerStateComponent = %AttackerStateComponent
-@onready var attack_charge_bar: AttackChargeBar = %AttackChargeBar
 @onready var charger_timer: Timer = %ChargerTimer
 
 @export var max_charge := 100.0
@@ -15,16 +14,10 @@ class_name AttackerChargeComponent
 
 var charge := 0.0
 
+## play sound effect and particles when fully charged, and particles while
+## charging
 func _ready() -> void:
 	charger_timer.start(charge_interval)
-
-func _update_bar() -> void:
-	TweenManager.tween_bar(
-		attack_charge_bar, 
-		charge,
-		0.5,
-		Tween.TransitionType.TRANS_QUAD,
-		Tween.EaseType.EASE_OUT)
 
 func _on_charger_timer_timeout() -> void:
 	if attacker_state.is_state(attacker_state.AttackerState.READY):
@@ -34,7 +27,6 @@ func _on_charger_timer_timeout() -> void:
 
 func set_charge(new_charge) -> void:
 	charge = clampf(new_charge, 0, max_charge)
-	_update_bar()
 
 func is_power_attack() -> bool:
 	return charge >= max_charge

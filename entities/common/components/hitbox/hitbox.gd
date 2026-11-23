@@ -11,4 +11,5 @@ func _ready() -> void:
 	damage_instance = DamageInstance.new(
 		base_damage_instance.health_damage, 
 		base_damage_instance.poise_damage,
-		base_damage_instance.damage_type)
+		base_damage_instance.damage_type,
+		base_damage_instance.avoidance_type)
