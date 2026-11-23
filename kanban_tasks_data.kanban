@@ -13,10 +13,9 @@
 			"tasks": [
 				"9b58edea-ab7d-45ba-86df-db714187ffc8",
 				"24c73062-7721-40f3-a505-ec53a9a030b0",
-				"798d73e3-bbc4-440a-9ee3-20aa89ea780c",
-				"a5a47d54-1c04-4f0d-807e-a4812028e530",
-				"23ac6a2a-37f8-4ed9-a207-28e78e0e5d4e",
-				"c51d04a2-8b55-462e-b565-b7d27b9b5aae"
+				"52ce007d-91b1-47d4-9330-8d048415f5c7",
+				"d1656eaa-4a49-4dc0-8180-f20cdc356988",
+				"4804d79e-0a07-4850-9b2e-a102696fd1c5"
 			]
 		},
 		{
@@ -31,7 +30,11 @@
 				"e7bf9f33-283a-4504-a34e-3de4f76fc5ca",
 				"3b189664-cb7e-4e2f-86eb-68ee4385e69e",
 				"dff8db29-ec98-400d-81c3-e0102be86311",
-				"f0337599-56f1-4955-a5ae-213535b39276"
+				"f0337599-56f1-4955-a5ae-213535b39276",
+				"c51d04a2-8b55-462e-b565-b7d27b9b5aae",
+				"798d73e3-bbc4-440a-9ee3-20aa89ea780c",
+				"a5a47d54-1c04-4f0d-807e-a4812028e530",
+				"23ac6a2a-37f8-4ed9-a207-28e78e0e5d4e"
 			]
 		}
 	],
@@ -102,6 +105,34 @@
 		{
 			"uuid": "c51d04a2-8b55-462e-b565-b7d27b9b5aae",
 			"title": "Quickdraw Katana for Bonus Damage",
+			"description": "",
+			"category": "f9bf3c31-1159-4b38-bbc6-b5f583fd5761",
+			"steps": []
+		},
+		{
+			"uuid": "52ce007d-91b1-47d4-9330-8d048415f5c7",
+			"title": "Boss Phases",
+			"description": "",
+			"category": "f9bf3c31-1159-4b38-bbc6-b5f583fd5761",
+			"steps": []
+		},
+		{
+			"uuid": "2e7a495b-053b-4567-a90f-ab5123461d5c",
+			"title": "Sex",
+			"description": "",
+			"category": "f9bf3c31-1159-4b38-bbc6-b5f583fd5761",
+			"steps": []
+		},
+		{
+			"uuid": "d1656eaa-4a49-4dc0-8180-f20cdc356988",
+			"title": "Actually Fix Tabatha's Model",
+			"description": "",
+			"category": "f9bf3c31-1159-4b38-bbc6-b5f583fd5761",
+			"steps": []
+		},
+		{
+			"uuid": "4804d79e-0a07-4850-9b2e-a102696fd1c5",
+			"title": "Parrying Actually Works",
 			"description": "",
 			"category": "f9bf3c31-1159-4b38-bbc6-b5f583fd5761",
 			"steps": []

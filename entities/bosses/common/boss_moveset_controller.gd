@@ -1,5 +1,5 @@
-class_name BossMovesetController
 extends Node
+class_name BossMovesetController
 
 signal move_started(move: BaseBossMove)
 signal move_finished(move: BaseBossMove)
@@ -50,9 +50,9 @@ func _pick_move() -> BaseBossMove:
 	var valid_weights := PackedFloat32Array()
 	var total := 0.0
 	for i in _moves.size():
-		var w := _weights[i] if _moves[i].is_valid() else 0.0
-		valid_weights.append(w)
-		total += w
+		var weight := _weights[i] if _moves[i].is_valid() else 0.0
+		valid_weights.append(weight)
+		total += weight
 	if total <= 0.0:
 		return null
 	
