@@ -4,10 +4,11 @@
 [ext_resource type="Script" uid="uid://gfsbbqbsg80" path="res://entities/common/components/hitbox/hitbox.gd" id="2_yi8de"]
 [ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="3_v7146"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuv6x"]
+
 [sub_resource type="Resource" id="Resource_g4v7s"]
 script = ExtResource("3_v7146")
 health_damage = 10
-avoidance_type = 2
 metadata/_custom_type_script = "uid://cdfq2i21dytg3"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yf5fn"]
@@ -22,6 +23,7 @@ unique_name_in_owner = true
 one_shot = true
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=78548540]
+material = SubResource("StandardMaterial3D_wuv6x")
 
 [node name="Hitbox" type="Area3D" parent="." unique_id=700711057]
 collision_layer = 4

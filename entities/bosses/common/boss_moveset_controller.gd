@@ -52,7 +52,7 @@ func _pick_move() -> BaseBossMove:
 	var valid_weights := PackedFloat32Array()
 	var total := 0.0
 	for i in _moves.size():
-		var weight := _weights[i] if _moves[i].is_valid() else 0.0
+		var weight := _weights[i] if _moves[i].is_valid() and _moves[i].enabled else 0.0
 		valid_weights.append(weight)
 		total += weight
 	if total <= 0.0:

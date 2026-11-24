@@ -10,10 +10,12 @@ class_name AttackerComponent
 @onready var attacker_state: AttackerStateComponent = %AttackerStateComponent
 @onready var attacker_charge: AttackerChargeComponent = %AttackerChargeComponent
 
+var charge_at_release := 0.0
+
 signal player_attacked()
 
 func _ready() -> void:
-	attack_collider.disabled = true
+	attack_hitbox.set_collider_state(false)
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ready_blade"):
@@ -27,19 +29,21 @@ func _input(event: InputEvent) -> void:
 func attack() -> void:
 	player_attacked.emit()
 	reset_damage()
-	attacker_charge.set_charge(0)
+	
+	charge_at_release = attacker_charge.resource
 	
 	if attacker_charge.is_power_attack():
 		attack_hitbox.damage_instance.poise_damage *= attacker_charge.poise_damage_multiplier
 	
-	attack_hitbox.set_collider_state(false)
+	attacker_charge.resource = 0
+	
+	attack_hitbox.set_collider_state(true)
 	attack_active_timer.start()
 	await attack_active_timer.timeout
-	attack_hitbox.set_collider_state(true)
+	attack_hitbox.set_collider_state(false)
 	
 	reset_damage()
 
 func reset_damage() -> void:
 	attack_hitbox.damage_instance.poise_damage = attack_hitbox.base_damage_instance.poise_damage
 	attack_hitbox.damage_instance.health_damage = attack_hitbox.base_damage_instance.health_damage
-	

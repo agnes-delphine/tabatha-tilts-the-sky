@@ -5,6 +5,7 @@ class_name DashComponent
 @export var camera: PhantomCamera3D
 @export var player_state: PlayerStateComponent
 @onready var stamina: StaminaComponent = %StaminaComponent
+@onready var camera_focus: Node3D = %CameraFocus
 
 @export_category("Dash")
 @export var dash_speed := 30.0
@@ -55,11 +56,7 @@ func try_dash() -> void:
 	
 	stamina.decrease(stamina_cost)
 	
-	## TEMP FOR FUNNY
-	var tween = create_tween()
-	var current_degrees = player.model.rotation_degrees
-	tween.tween_property(player.model, "rotation_degrees:x", current_degrees.x + 360, 0.4)
-	## TEMP END
+	RotationManager.rotate_towards_target(player.model, camera_focus, 0.2)
 
 	dash_direction = direction
 	is_dashing = true
@@ -75,23 +72,4 @@ func try_dash() -> void:
 	can_dash = true
 
 func get_dash_direction() -> Vector3:
-	var input := Input.get_vector(
-		"move_left",
-		"move_right",
-		"move_forward",
-		"move_backwards"
-	)
-
-	if input.length_squared() <= 0.01:
-		return Vector3.ZERO
-
-	var forward := camera.global_transform.basis.z
-	var right := camera.global_transform.basis.x
-
-	forward.y = 0.0
-	right.y = 0.0
-
-	forward = forward.normalized()
-	right = right.normalized()
-
-	return (forward * input.y + right * input.x).normalized()
+	return (camera_focus.global_position - player.global_position).normalized()

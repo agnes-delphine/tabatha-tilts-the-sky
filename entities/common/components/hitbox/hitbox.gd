@@ -3,7 +3,9 @@ class_name Hitbox
 
 @onready var collider: CollisionShape3D = $CollisionShape3D
 
+@export var attacker : AttackerComponent
 @export var base_damage_instance : DamageInstance
+
 var damage_instance : DamageInstance
 
 func set_collider_state(state: bool) -> void:

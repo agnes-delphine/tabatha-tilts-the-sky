@@ -1,6 +1,9 @@
 extends Node
 class_name BaseBossMove
 
+## Should this move be used at all?
+@export var enabled := true
+
 ## The ID of the move.
 @export var move_id := &"BaseBossMoveID"
 

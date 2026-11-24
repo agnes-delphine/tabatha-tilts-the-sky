@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://bxioduopna0mo" path="res://entities/player/scripts/attacker_charge_component.gd" id="16_wuv6x"]
 [ext_resource type="Script" uid="uid://7g528kcx1amd" path="res://ui/hud/scripts/stat_ui_controller.gd" id="16_yqrof"]
 [ext_resource type="FontFile" uid="uid://c17rw7ovb0awq" path="res://ui/assets/fonts/Cascadia_Mono/static/CascadiaMono-ExtraLight.ttf" id="21_ghoj8"]
+[ext_resource type="Script" uid="uid://dh7h1w6cotva0" path="res://ui/hud/scripts/attack_charge_bar.gd" id="21_wuv6x"]
 [ext_resource type="Script" uid="uid://cucw17ylmvrtx" path="res://ui/hud/boss_stats/boss_stats_ui_controller.gd" id="22_50fht"]
 [ext_resource type="Theme" uid="uid://bf8b1dj0w31ia" path="res://ui/themes/boss_hp.tres" id="22_t1t22"]
 
@@ -31,7 +32,7 @@ radius = 0.23388672
 height = 2.25
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_we0b7"]
-radius = 0.99658203
+radius = 0.43896484
 height = 4.5356445
 
 [sub_resource type="Resource" id="Resource_yj6s3"]
@@ -111,11 +112,12 @@ height = 0.378
 unique_name_in_owner = true
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.2743042, 0)
 
-[node name="AttackHitbox" parent="Model" unique_id=135541384 instance=ExtResource("6_t1t22")]
+[node name="AttackHitbox" parent="Model" unique_id=135541384 node_paths=PackedStringArray("attacker") instance=ExtResource("6_t1t22")]
 unique_name_in_owner = true
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.5486083, 4.195002)
 collision_layer = 1
 collision_mask = 4
+attacker = NodePath("../../Components/AttackerComponent")
 base_damage_instance = SubResource("Resource_yj6s3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Model/AttackHitbox" unique_id=1622328254]
@@ -145,6 +147,7 @@ increase_rate = 7.5
 [node name="CameraComponent" type="Node" parent="Components" unique_id=633656761]
 unique_name_in_owner = true
 script = ExtResource("3_8fjmc")
+rotation_speed = 36.0
 
 [node name="MovementComponent" type="Node" parent="Components" unique_id=101337582 node_paths=PackedStringArray("player", "camera", "model", "player_state", "speed_modifier", "attacker_state")]
 script = ExtResource("2_fkugw")
@@ -154,6 +157,8 @@ model = NodePath("../../Model")
 player_state = NodePath("../PlayerStateComponent")
 speed_modifier = NodePath("MovementSpeedModifierComponent")
 attacker_state = NodePath("../AttackerComponent/AttackerStateComponent")
+acceleration = 150.0
+deceleration = 300.0
 
 [node name="MovementSpeedModifierComponent" type="Node" parent="Components/MovementComponent" unique_id=1677041648]
 script = ExtResource("3_wvtmh")
@@ -164,6 +169,7 @@ script = ExtResource("6_j3ovn")
 player = NodePath("../../..")
 camera = NodePath("../../../CameraGroup/CameraPivot/PhantomCamera3D")
 player_state = NodePath("../../PlayerStateComponent")
+dash_speed = 40.0
 
 [node name="SlideComponent" type="Node" parent="Components/MovementComponent" unique_id=785443510 node_paths=PackedStringArray("player", "camera", "state")]
 unique_name_in_owner = true
@@ -188,6 +194,7 @@ script = ExtResource("15_eyb6c")
 [node name="AttackerChargeComponent" type="Node" parent="Components/AttackerComponent" unique_id=603244063]
 unique_name_in_owner = true
 script = ExtResource("16_wuv6x")
+start_at_max = false
 
 [node name="ChargerTimer" type="Timer" parent="Components/AttackerComponent/AttackerChargeComponent" unique_id=597435259]
 unique_name_in_owner = true
@@ -230,6 +237,14 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="PlayerUI" type="CanvasLayer" parent="." unique_id=1534802610]
 unique_name_in_owner = true
+
+[node name="AttackChargeBar" type="ProgressBar" parent="PlayerUI" unique_id=15097787]
+unique_name_in_owner = true
+offset_top = 973.0
+offset_right = 4.0
+offset_bottom = 996.0
+script = ExtResource("21_wuv6x")
+metadata/_custom_type_script = "uid://dh7h1w6cotva0"
 
 [node name="PlayerStatsPanel" type="Panel" parent="PlayerUI" unique_id=157490109]
 custom_minimum_size = Vector2(400, 100)

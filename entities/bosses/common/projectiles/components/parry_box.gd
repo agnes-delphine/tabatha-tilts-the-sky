@@ -5,6 +5,9 @@ class_name ParryBox
 @onready var hitbox: Hitbox = %Hitbox
 @onready var model: CSGSphere3D = %CSGSphere3D
 
+## The minimum charge required to parry this projectile.
+@export_range(0.0, 100.0, 1.0) var minimum_charge_to_parry := 15.0
+
 ## The damage the projectile does if parried.
 @export var damage_if_parried : DamageInstance
 
@@ -18,8 +21,17 @@ func _on_area_entered(area: Area3D) -> void:
 	if area is not Hitbox:
 		return
 	
+	area = area as Hitbox
+	
+	if not is_instance_valid(area.attacker):
+		return
+	
+	if area.attacker.charge_at_release < minimum_charge_to_parry:
+		return
+		
 	## reverse direction
-	projectile.direction = -projectile.direction
+	var new_direction = projectile.global_position.direction_to(BossManager.current_boss.global_position)
+	projectile.direction = new_direction
 	projectile.speed *= 2
 	
 	## sfx

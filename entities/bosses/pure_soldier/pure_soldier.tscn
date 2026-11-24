@@ -14,12 +14,16 @@
 [ext_resource type="Script" uid="uid://dcuuy1udockn1" path="res://entities/bosses/common/boss_projectile_source_component.gd" id="8_4opa4"]
 [ext_resource type="Script" uid="uid://d4kiiyn31sg8x" path="res://entities/bosses/common/moves/move_to_player.gd" id="9_o5h7e"]
 [ext_resource type="Script" uid="uid://qp6w033rhofu" path="res://entities/bosses/common/moves/move_to_center.gd" id="10_u7lhy"]
-[ext_resource type="PackedScene" uid="uid://dmdqsdiu1doc5" path="res://entities/bosses/common/projectiles/base/basic_parriable_projectile.tscn" id="11_4dtoa"]
+[ext_resource type="PackedScene" uid="uid://d00bqkqetrmda" path="res://entities/bosses/common/projectiles/base/basic_projectile.tscn" id="11_4dtoa"]
+[ext_resource type="PackedScene" uid="uid://doaixa4bnqfi4" path="res://entities/bosses/common/projectiles/base/basic_dashable_projectile.tscn" id="12_kords"]
 [ext_resource type="Script" uid="uid://bl18xlpmc0nat" path="res://entities/bosses/common/moves/fire_at_player.gd" id="12_tfxf7"]
+[ext_resource type="PackedScene" uid="uid://cvx0d4f1reawt" path="res://entities/bosses/common/projectiles/base/basic_slidable_projectile.tscn" id="13_1trp4"]
+[ext_resource type="PackedScene" uid="uid://dmdqsdiu1doc5" path="res://entities/bosses/common/projectiles/base/basic_parriable_projectile.tscn" id="14_b07aw"]
 [ext_resource type="Script" uid="uid://cmdmsnw5r7cjb" path="res://entities/bosses/common/moves/fire_at_cardinals.gd" id="14_sdulr"]
 [ext_resource type="Script" uid="uid://bkugthnoqb2ag" path="res://entities/bosses/common/moves/fire_at_diagonals.gd" id="15_na6xo"]
 [ext_resource type="Script" uid="uid://b8nu6a2id8tan" path="res://entities/bosses/common/moves/fire_at_cardinals_and_diagonals.gd" id="16_ml2kn"]
 [ext_resource type="Script" uid="uid://d03bpt1to11w2" path="res://entities/bosses/common/moves/fun/leap_to_player.gd" id="17_cn2sg"]
+[ext_resource type="Script" uid="uid://4p6rarju15hm" path="res://entities/bosses/common/moves/move_to_random.gd" id="18_1trp4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 radius = 1.9521484
@@ -88,12 +92,15 @@ max_resource = 3.0
 [node name="BossProjectileSourceComponent" type="Node" parent="Components" unique_id=1275618508]
 unique_name_in_owner = true
 script = ExtResource("8_4opa4")
-projectile_scene = ExtResource("11_4dtoa")
+basic_projectile_scene = ExtResource("11_4dtoa")
+dashable_projectile_scene = ExtResource("12_kords")
+slideable_projectile_scene = ExtResource("13_1trp4")
+parriable_projectile_scene = ExtResource("14_b07aw")
 
 [node name="BossMovesetController" type="Node" parent="." unique_id=1445894284]
 unique_name_in_owner = true
 script = ExtResource("4_1bgb0")
-global_delay_multiplier = 4.0
+global_delay_multiplier = 0.6
 
 [node name="MoveToPlayer" type="Node" parent="BossMovesetController" unique_id=2030288426]
 script = ExtResource("9_o5h7e")
@@ -109,8 +116,14 @@ move_weight = 0.2
 min_delay = 0.7
 max_delay = 1.0
 
+[node name="MoveToRandom" type="Node" parent="BossMovesetController" unique_id=976559923]
+script = ExtResource("18_1trp4")
+move_id = &"BaseBossMoveToRandom"
+
 [node name="FireAtPlayer" type="Node" parent="BossMovesetController" unique_id=577612473]
 script = ExtResource("12_tfxf7")
+projectile_speed = 10.0
+projectile_type = 1
 move_id = &"BaseBossFireAtPlayer"
 move_weight = 0.8
 min_delay = 0.5
@@ -119,18 +132,26 @@ repeatable = true
 
 [node name="FireAtCardinals" type="Node" parent="BossMovesetController" unique_id=655612934]
 script = ExtResource("14_sdulr")
+projectile_speed = 10.0
+projectile_type = 2
 move_id = &"BaseBossFireAtCardinals"
 min_delay = 0.5
 max_delay = 0.5
 
 [node name="FireAtDiagonals" type="Node" parent="BossMovesetController" unique_id=501236359]
 script = ExtResource("15_na6xo")
+start_angle_degrees = 45.0
+projectile_speed = 10.0
+projectile_type = 2
 move_id = &"BaseBossFireAtDiagonals"
 min_delay = 0.5
 max_delay = 0.5
 
 [node name="FireAtCardinalsAndDiagonals" type="Node" parent="BossMovesetController" unique_id=1871212265]
 script = ExtResource("16_ml2kn")
+projectile_count = 8
+projectile_speed = 10.0
+projectile_type = 3
 move_id = &"BaseBossFireAtCardinalsAndDiagonals"
 move_weight = 0.5
 min_delay = 0.5
@@ -139,6 +160,7 @@ repeatable = true
 
 [node name="LeapToPlayer" type="Node" parent="BossMovesetController" unique_id=1881715163]
 script = ExtResource("17_cn2sg")
+enabled = false
 move_id = &"WimbleLeapToPlayer"
 move_weight = 0.0
 

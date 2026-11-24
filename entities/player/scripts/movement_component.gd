@@ -13,21 +13,10 @@ class_name MovementComponent
 @export var acceleration := 70.0
 @export var deceleration := 100.0
 
-@export_category("Air Movement")
-@export var air_acceleration := 30.0
-@export var air_steering := 8.0
-@export var air_max_speed := 25.0
-
 var current_speed : float
 
 @export_category("Rotation")
 @export var rotation_lerp_speed := 0.25
-
-@export_category("Noclip")
-@export var noclip_speed := 10.0
-
-signal air_state_changed(is_airborne: bool)
-var airborne := false
 
 func _ready() -> void:
 	current_speed = base_speed
@@ -53,17 +42,6 @@ func _physics_process(delta: float) -> void:
 		get_move_input(delta)
 
 	player.move_and_slide()
-
-	update_air_state()
-
-func update_air_state() -> void:
-	var new_airborne := not player.is_on_floor()
-
-	if airborne == new_airborne:
-		return
-
-	airborne = new_airborne
-	air_state_changed.emit(airborne)
 
 func get_move_input(delta: float) -> void:
 	var input := Input.get_vector(
@@ -123,47 +101,10 @@ func get_move_input(delta: float) -> void:
 			target_velocity.z,
 			rate * delta
 		)
-	else:
-		horizontal_velocity = apply_air_control(
-			horizontal_velocity,
-			dir,
-			delta
-		)
 
 	player.velocity.x = horizontal_velocity.x
 	player.velocity.z = horizontal_velocity.z
 
-
-func apply_air_control(
-	velocity: Vector3,
-	direction: Vector3,
-	delta: float
-) -> Vector3:
-	if direction == Vector3.ZERO:
-		return velocity
-
-	var directional_speed := velocity.dot(direction)
-
-	if directional_speed < air_max_speed:
-		var acceleration_amount := air_acceleration * delta
-		acceleration_amount = minf(
-			acceleration_amount,
-			air_max_speed - directional_speed
-		)
-
-		velocity += direction * acceleration_amount
-
-	var horizontal_speed := velocity.length()
-
-	if horizontal_speed > 0.01:
-		var desired_velocity := direction * horizontal_speed
-
-		velocity = velocity.lerp(
-			desired_velocity,
-			1.0 - exp(-air_steering * delta)
-		)
-
-	return velocity
 
 func apply_gravity(delta: float) -> void:
 	var gravity = player.get_gravity()
