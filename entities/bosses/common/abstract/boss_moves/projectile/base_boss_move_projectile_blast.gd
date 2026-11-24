@@ -15,10 +15,16 @@ func execute() -> void:
 
 	var spread := deg_to_rad(spread_degrees)
 
+	if random_projectile_type == RandomProjectileType.TOGETHER:
+		projectile_type = _get_random_projectile_type()
+	
 	for i in pellet_count:
 		var t := 0.0 if pellet_count == 1 else float(i) / (pellet_count - 1) - 0.5
 
 		var angle := t * spread + deg_to_rad(randf_range(-jitter_degrees, jitter_degrees))
 
 		var direction := aim_direction.rotated(Vector3.UP, angle)
-		projectile_source.spawn_projectile(boss_pos, direction, projectile_speed, projectile_type)
+		if random_projectile_type == RandomProjectileType.SEPARATE:
+			projectile_source.spawn_projectile(boss_pos, direction, projectile_speed, _get_random_projectile_type())
+		else:
+			projectile_source.spawn_projectile(boss_pos, direction, projectile_speed, projectile_type)

@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://b8nu6a2id8tan" path="res://entities/bosses/common/moves/fire_at_cardinals_and_diagonals.gd" id="16_ml2kn"]
 [ext_resource type="Script" uid="uid://d03bpt1to11w2" path="res://entities/bosses/common/moves/fun/leap_to_player.gd" id="17_cn2sg"]
 [ext_resource type="Script" uid="uid://4p6rarju15hm" path="res://entities/bosses/common/moves/move_to_random.gd" id="18_1trp4"]
+[ext_resource type="Script" uid="uid://cbwjtqy6d7yt7" path="res://entities/bosses/common/moves/fire_at_player_twice.gd" id="20_b07aw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 radius = 1.9521484
@@ -109,26 +110,37 @@ move_weight = 0.4
 min_delay = 0.5
 max_delay = 0.5
 
-[node name="MoveToCenter" type="Node" parent="BossMovesetController" unique_id=863161502]
+[node name="MoveToCenter" type="Node" parent="BossMovesetController" unique_id=863161502 node_paths=PackedStringArray("next_move")]
 script = ExtResource("10_u7lhy")
 move_id = &"BaseBossMoveToCenter"
 move_weight = 0.2
 min_delay = 0.7
 max_delay = 1.0
+next_move = NodePath("../FireAtCardinalsAndDiagonals")
 
 [node name="MoveToRandom" type="Node" parent="BossMovesetController" unique_id=976559923]
 script = ExtResource("18_1trp4")
 move_id = &"BaseBossMoveToRandom"
 
 [node name="FireAtPlayer" type="Node" parent="BossMovesetController" unique_id=577612473]
+unique_name_in_owner = true
 script = ExtResource("12_tfxf7")
 projectile_speed = 10.0
 projectile_type = 1
+random_projectile_type = 1
+enabled = false
 move_id = &"BaseBossFireAtPlayer"
 move_weight = 0.8
 min_delay = 0.5
 max_delay = 1.0
 repeatable = true
+
+[node name="FireAtPlayerTwice" type="Node" parent="BossMovesetController" unique_id=734850448 node_paths=PackedStringArray("next_move")]
+script = ExtResource("20_b07aw")
+projectile_speed = 10.0
+random_projectile_type = 1
+move_id = &"BaseBossFireAtPlayerTwice"
+next_move = NodePath("../FireAtPlayer")
 
 [node name="FireAtCardinals" type="Node" parent="BossMovesetController" unique_id=655612934]
 script = ExtResource("14_sdulr")
@@ -149,9 +161,11 @@ max_delay = 0.5
 
 [node name="FireAtCardinalsAndDiagonals" type="Node" parent="BossMovesetController" unique_id=1871212265]
 script = ExtResource("16_ml2kn")
-projectile_count = 8
+projectile_count = 16
+fire_delay = 0.02
 projectile_speed = 10.0
 projectile_type = 3
+random_projectile_type = 1
 move_id = &"BaseBossFireAtCardinalsAndDiagonals"
 move_weight = 0.5
 min_delay = 0.5

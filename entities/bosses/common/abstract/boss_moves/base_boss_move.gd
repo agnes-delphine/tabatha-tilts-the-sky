@@ -18,6 +18,8 @@ class_name BaseBossMove
 @export var max_delay := 3.0
 ## Should this move be executed more than once in a row?
 @export var repeatable := false
+## If this move is part of a chain, what's the next one?
+@export var next_move : BaseBossMove
 
 ## The boss using this move.
 var boss : Boss

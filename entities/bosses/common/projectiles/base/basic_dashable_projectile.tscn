@@ -12,10 +12,20 @@ health_damage = 10
 avoidance_type = 2
 metadata/_custom_type_script = "uid://cdfq2i21dytg3"
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lbttb"]
+albedo_color = Color(0, 0, 1, 1)
+
 [node name="BasicDashableProjectile" unique_id=1297863229 instance=ExtResource("1_lbttb")]
 
 [node name="CSGSphere3D" parent="." index="1" unique_id=78548540]
+visible = false
 material = SubResource("StandardMaterial3D_v04mk")
 
 [node name="Hitbox" parent="." index="2" unique_id=700711057]
 base_damage_instance = SubResource("Resource_qrwkl")
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="." index="3" unique_id=485600760]
+inner_radius = 0.37745127
+outer_radius = 0.5725657
+sides = 3
+material = SubResource("StandardMaterial3D_lbttb")

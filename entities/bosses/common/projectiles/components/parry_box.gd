@@ -3,13 +3,16 @@ class_name ParryBox
 
 @onready var projectile: BaseProjectile = $".."
 @onready var hitbox: Hitbox = %Hitbox
-@onready var model: CSGSphere3D = %CSGSphere3D
+@onready var model: CSGBox3D = %CSGBox3D
 
 ## The minimum charge required to parry this projectile.
 @export_range(0.0, 100.0, 1.0) var minimum_charge_to_parry := 15.0
 
 ## The damage the projectile does if parried.
 @export var damage_if_parried : DamageInstance
+
+## The current charge is multiplied by this and added to the poise damage.
+@export var charge_damage_scale := 0.1
 
 ## Particles when parried
 @export var particles : PackedScene
@@ -41,6 +44,7 @@ func _on_area_entered(area: Area3D) -> void:
 	
 	## trans
 	model.material = parried_material
+	projectile._face_direction()
 	
 	## change owner to player
 	hitbox.set_collision_layer_value(1, true)
@@ -49,7 +53,8 @@ func _on_area_entered(area: Area3D) -> void:
 	hitbox.set_collision_mask_value(1, false)
 	hitbox.set_collision_mask_value(3, true)
 	
-	hitbox.damage_instance = damage_if_parried
+	hitbox.damage_instance = damage_if_parried.duplicate()
+	hitbox.damage_instance.poise_damage += (area.attacker.charge_at_release * charge_damage_scale)
 	
 	queue_free()
 	

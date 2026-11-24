@@ -3,7 +3,7 @@ class_name CameraComponent
 
 @onready var camera_pivot: Node3D = %CameraPivot
 @onready var camera: PhantomCamera3D = %PhantomCamera3D
-@onready var model: IzumiModel = %Model
+@onready var model: Node3D = %Model
 @onready var camera_focus: Node3D = %CameraFocus
 
 @export_category("Mouse Look")

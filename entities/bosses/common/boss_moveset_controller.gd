@@ -65,6 +65,11 @@ func _pick_move() -> BaseBossMove:
 			if weight_without_last > 0.0:
 				valid_weights[last_index] = 0.0
 	
+	## If this is a chain move, get the next.
+	if _last_move != null and is_instance_valid(_last_move.next_move):
+		_last_move = _last_move.next_move
+		return _last_move
+	
 	var picked := _moves[_rng.rand_weighted(valid_weights)]
 	_last_move = picked
 	return picked
