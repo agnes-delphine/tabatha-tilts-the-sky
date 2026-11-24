@@ -111,19 +111,6 @@ height = 0.378
 unique_name_in_owner = true
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.2743042, 0)
 
-[node name="Raycasts" type="Node3D" parent="Model" unique_id=2138788530]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.5486083, 0)
-
-[node name="RayCastChest" type="RayCast3D" parent="Model/Raycasts" unique_id=1615476784]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.030390203, 0, 0.4240409)
-target_position = Vector3(0, 0, 1)
-collision_mask = 2
-
-[node name="RayCastHead" type="RayCast3D" parent="Model/Raycasts" unique_id=927973323]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.030390203, 1.3329953, 0.4240409)
-target_position = Vector3(0, 0, 1)
-collision_mask = 2
-
 [node name="AttackHitbox" parent="Model" unique_id=135541384 instance=ExtResource("6_t1t22")]
 unique_name_in_owner = true
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.5486083, 4.195002)
@@ -131,7 +118,7 @@ collision_layer = 1
 collision_mask = 4
 base_damage_instance = SubResource("Resource_yj6s3")
 
-[node name="AttackCollider" type="CollisionShape3D" parent="Model/AttackHitbox" unique_id=1622328254]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Model/AttackHitbox" unique_id=1622328254]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 shape = SubResource("BoxShape3D_g4v7s")

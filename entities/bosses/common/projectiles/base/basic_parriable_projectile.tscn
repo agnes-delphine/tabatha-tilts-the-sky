@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dmdqsdiu1doc5"]
+
+[ext_resource type="PackedScene" uid="uid://d00bqkqetrmda" path="res://entities/bosses/common/projectiles/base/basic_projectile.tscn" id="1_jjuh4"]
+[ext_resource type="Script" uid="uid://c5xv4uvfnfbcl" path="res://entities/bosses/common/projectiles/components/parry_box.gd" id="2_45jm1"]
+[ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="3_7lixt"]
+[ext_resource type="PackedScene" uid="uid://c71r4s76o7tic" path="res://entities/common/scenes/sparks_emitter.tscn" id="4_p2dp6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjuh4"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_45jm1"]
+script = ExtResource("3_7lixt")
+health_damage = 1
+poise_damage = 10
+damage_type = 0
+metadata/_custom_type_script = "uid://cdfq2i21dytg3"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p2dp6"]
+albedo_color = Color(0, 0.5019608, 0, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yf5fn"]
+radius = 0.71060354
+
+[node name="BasicParriableProjectile" unique_id=1297863229 instance=ExtResource("1_jjuh4")]
+
+[node name="CSGSphere3D" parent="." index="1" unique_id=78548540]
+unique_name_in_owner = true
+material = SubResource("StandardMaterial3D_jjuh4")
+
+[node name="Hitbox" parent="." index="2" unique_id=700711057]
+unique_name_in_owner = true
+
+[node name="ParryBox" type="Area3D" parent="." index="3" unique_id=181142295]
+collision_layer = 4
+script = ExtResource("2_45jm1")
+damage_if_parried = SubResource("Resource_45jm1")
+particles = ExtResource("4_p2dp6")
+parried_material = SubResource("StandardMaterial3D_p2dp6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParryBox" index="0" unique_id=1583419645]
+shape = SubResource("SphereShape3D_yf5fn")
+
+[connection signal="area_entered" from="ParryBox" to="ParryBox" method="_on_area_entered"]

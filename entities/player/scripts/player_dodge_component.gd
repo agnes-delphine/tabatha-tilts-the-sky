@@ -12,8 +12,5 @@ func try_dodge(hitbox: Hitbox) -> bool:
 	if hitbox.damage_instance.avoidance_type == DamageInstance.AvoidanceType.DASH \
 		and dash.is_dashing:
 			return true
-	#if hitbox.damage_instance.avoidance_type == DamageInstance.AvoidanceType.PARRY \
-	#	and parry.is_parrying:
-	#		return true
 	
 	return false

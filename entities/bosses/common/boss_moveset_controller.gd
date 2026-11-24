@@ -12,6 +12,8 @@ var _acting := false
 
 var _last_move: BaseBossMove = null
 
+@export var global_delay_multiplier := 1.0
+
 func _ready() -> void:
 	await get_tree().create_timer(1).timeout ## Delay to prevent races during testing.
 	_rng.randomize()
@@ -75,5 +77,5 @@ func _execute(move: BaseBossMove) -> void:
 	print("Executing %s" % move.move_id)
 	move.execute()
 	move_started.emit(move)
-	await get_tree().create_timer(_rng.randf_range(move.min_delay, move.max_delay)).timeout
+	await get_tree().create_timer(_rng.randf_range(move.min_delay, move.max_delay) * global_delay_multiplier).timeout
 	move_finished.emit(move)

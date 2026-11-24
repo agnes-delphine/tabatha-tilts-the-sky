@@ -5,7 +5,6 @@ class_name AttackerComponent
 @onready var camera_focus: Node3D = %CameraFocus
 
 @onready var attack_hitbox: Hitbox = %AttackHitbox
-@onready var attack_collider: CollisionShape3D = %AttackCollider
 @onready var attack_active_timer: Timer = %AttackActiveTimer
 
 @onready var attacker_state: AttackerStateComponent = %AttackerStateComponent
@@ -33,10 +32,10 @@ func attack() -> void:
 	if attacker_charge.is_power_attack():
 		attack_hitbox.damage_instance.poise_damage *= attacker_charge.poise_damage_multiplier
 	
-	attack_collider.disabled = false
+	attack_hitbox.set_collider_state(false)
 	attack_active_timer.start()
 	await attack_active_timer.timeout
-	attack_collider.disabled = true
+	attack_hitbox.set_collider_state(true)
 	
 	reset_damage()
 

@@ -12,9 +12,9 @@
 [ext_resource type="Script" uid="uid://d3m60pwowjhsc" path="res://entities/bosses/common/poise/poise_component.gd" id="6_jp8mt"]
 [ext_resource type="Script" uid="uid://fskgl7ceqcrn" path="res://entities/bosses/common/boss_health/boss_health_component.gd" id="6_t241k"]
 [ext_resource type="Script" uid="uid://dcuuy1udockn1" path="res://entities/bosses/common/boss_projectile_source_component.gd" id="8_4opa4"]
-[ext_resource type="PackedScene" uid="uid://d00bqkqetrmda" path="res://entities/bosses/common/projectiles/base/basic_projectile.tscn" id="9_00blr"]
 [ext_resource type="Script" uid="uid://d4kiiyn31sg8x" path="res://entities/bosses/common/moves/move_to_player.gd" id="9_o5h7e"]
 [ext_resource type="Script" uid="uid://qp6w033rhofu" path="res://entities/bosses/common/moves/move_to_center.gd" id="10_u7lhy"]
+[ext_resource type="PackedScene" uid="uid://dmdqsdiu1doc5" path="res://entities/bosses/common/projectiles/base/basic_parriable_projectile.tscn" id="11_4dtoa"]
 [ext_resource type="Script" uid="uid://bl18xlpmc0nat" path="res://entities/bosses/common/moves/fire_at_player.gd" id="12_tfxf7"]
 [ext_resource type="Script" uid="uid://cmdmsnw5r7cjb" path="res://entities/bosses/common/moves/fire_at_cardinals.gd" id="14_sdulr"]
 [ext_resource type="Script" uid="uid://bkugthnoqb2ag" path="res://entities/bosses/common/moves/fire_at_diagonals.gd" id="15_na6xo"]
@@ -53,6 +53,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2664671, 0)
 shape = SubResource("CapsuleShape3D_g4v7s")
 
 [node name="Hitbox" type="Area3D" parent="." unique_id=288140482]
+unique_name_in_owner = true
 collision_layer = 4
 script = ExtResource("3_4dtoa")
 base_damage_instance = SubResource("Resource_owtkv")
@@ -87,26 +88,31 @@ max_resource = 3.0
 [node name="BossProjectileSourceComponent" type="Node" parent="Components" unique_id=1275618508]
 unique_name_in_owner = true
 script = ExtResource("8_4opa4")
-projectile_scene = ExtResource("9_00blr")
+projectile_scene = ExtResource("11_4dtoa")
 
 [node name="BossMovesetController" type="Node" parent="." unique_id=1445894284]
 unique_name_in_owner = true
 script = ExtResource("4_1bgb0")
+global_delay_multiplier = 4.0
 
 [node name="MoveToPlayer" type="Node" parent="BossMovesetController" unique_id=2030288426]
 script = ExtResource("9_o5h7e")
 move_id = &"BaseBossMoveToPlayer"
-max_delay = 2.0
+move_weight = 0.4
+min_delay = 0.5
+max_delay = 0.5
 
 [node name="MoveToCenter" type="Node" parent="BossMovesetController" unique_id=863161502]
 script = ExtResource("10_u7lhy")
 move_id = &"BaseBossMoveToCenter"
-move_weight = 0.4
-max_delay = 2.0
+move_weight = 0.2
+min_delay = 0.7
+max_delay = 1.0
 
 [node name="FireAtPlayer" type="Node" parent="BossMovesetController" unique_id=577612473]
 script = ExtResource("12_tfxf7")
 move_id = &"BaseBossFireAtPlayer"
+move_weight = 0.8
 min_delay = 0.5
 max_delay = 1.0
 repeatable = true
@@ -115,24 +121,26 @@ repeatable = true
 script = ExtResource("14_sdulr")
 move_id = &"BaseBossFireAtCardinals"
 min_delay = 0.5
-max_delay = 1.5
+max_delay = 0.5
 
 [node name="FireAtDiagonals" type="Node" parent="BossMovesetController" unique_id=501236359]
 script = ExtResource("15_na6xo")
 move_id = &"BaseBossFireAtDiagonals"
 min_delay = 0.5
-max_delay = 1.5
+max_delay = 0.5
 
 [node name="FireAtCardinalsAndDiagonals" type="Node" parent="BossMovesetController" unique_id=1871212265]
 script = ExtResource("16_ml2kn")
 move_id = &"BaseBossFireAtCardinalsAndDiagonals"
-move_weight = 0.0
+move_weight = 0.5
 min_delay = 0.5
-max_delay = 1.5
+max_delay = 0.5
+repeatable = true
 
 [node name="LeapToPlayer" type="Node" parent="BossMovesetController" unique_id=1881715163]
 script = ExtResource("17_cn2sg")
 move_id = &"WimbleLeapToPlayer"
+move_weight = 0.0
 
 [node name="BossStateController" type="Node" parent="." unique_id=316893497]
 script = ExtResource("4_6ehsg")
