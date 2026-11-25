@@ -19,6 +19,22 @@ class_name ParryBox
 
 ## What color is it when parried?
 @export var parried_material : StandardMaterial3D
+var default_material : StandardMaterial3D
+
+func _ready() -> void:
+	default_material = model.material
+	projectile.finished.connect(_on_projectile_finished)
+
+func _on_projectile_finished(_projectile: BaseProjectile) -> void:
+	model.material = default_material
+	
+	hitbox.set_collision_layer_value(1, false)
+	hitbox.set_collision_layer_value(3, true)
+	
+	hitbox.set_collision_mask_value(1, true)
+	hitbox.set_collision_mask_value(3, false)
+	
+	hitbox.damage_instance = hitbox.base_damage_instance
 
 func _on_area_entered(area: Area3D) -> void:
 	if area is not Hitbox:
@@ -56,5 +72,5 @@ func _on_area_entered(area: Area3D) -> void:
 	hitbox.damage_instance = damage_if_parried.duplicate()
 	hitbox.damage_instance.poise_damage += (area.attacker.charge_at_release * charge_damage_scale)
 	
-	queue_free()
-	
+	set_deferred("monitoring", false)
+	set_deferred("monitorable", false)

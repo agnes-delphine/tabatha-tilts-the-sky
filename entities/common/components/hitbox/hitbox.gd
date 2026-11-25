@@ -9,7 +9,7 @@ class_name Hitbox
 var damage_instance : DamageInstance
 
 func set_collider_state(state: bool) -> void:
-	collider.disabled = !state
+	collider.set_deferred("disabled", !state)
 	
 func _ready() -> void:
 	if not is_instance_valid(base_damage_instance):

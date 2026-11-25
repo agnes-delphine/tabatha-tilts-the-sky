@@ -4,8 +4,6 @@
 [ext_resource type="Script" uid="uid://gfsbbqbsg80" path="res://entities/common/components/hitbox/hitbox.gd" id="2_yi8de"]
 [ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="3_v7146"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuv6x"]
-
 [sub_resource type="Resource" id="Resource_g4v7s"]
 script = ExtResource("3_v7146")
 health_damage = 10
@@ -14,18 +12,21 @@ metadata/_custom_type_script = "uid://cdfq2i21dytg3"
 [sub_resource type="SphereShape3D" id="SphereShape3D_yf5fn"]
 radius = 0.49479136
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p2dp6"]
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission_energy_multiplier = 3.1
+
 [node name="BasicProjectile" type="Node3D" unique_id=1297863229]
 script = ExtResource("1_2ogbd")
-lifetime = 10.0
+lifetime = 5.0
 
-[node name="LifetimeTimer" type="Timer" parent="." unique_id=1693545850]
+[node name="LifetimeTimer" type="Timer" parent="." unique_id=1254892022]
 unique_name_in_owner = true
 one_shot = true
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=78548540]
-material = SubResource("StandardMaterial3D_wuv6x")
-
 [node name="Hitbox" type="Area3D" parent="." unique_id=700711057]
+unique_name_in_owner = true
 collision_layer = 4
 script = ExtResource("2_yi8de")
 base_damage_instance = SubResource("Resource_g4v7s")
@@ -33,3 +34,9 @@ metadata/_custom_type_script = "uid://gfsbbqbsg80"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1259144242]
 shape = SubResource("SphereShape3D_yf5fn")
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="." unique_id=960780157]
+inner_radius = 0.35928488
+outer_radius = 0.49606118
+sides = 16
+material = SubResource("StandardMaterial3D_p2dp6")

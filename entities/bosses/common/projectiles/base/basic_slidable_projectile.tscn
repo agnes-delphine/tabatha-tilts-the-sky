@@ -3,9 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://d00bqkqetrmda" path="res://entities/bosses/common/projectiles/base/basic_projectile.tscn" id="1_eskrb"]
 [ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="2_23huq"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jurii"]
-albedo_color = Color(0.84313726, 1, 0.043137256, 1)
-
 [sub_resource type="Resource" id="Resource_lmv4e"]
 script = ExtResource("2_23huq")
 health_damage = 10
@@ -17,14 +14,13 @@ albedo_color = Color(1, 1, 0, 1)
 
 [node name="BasicSlidableProjectile" unique_id=1297863229 instance=ExtResource("1_eskrb")]
 
-[node name="CSGSphere3D" parent="." index="1" unique_id=78548540]
-visible = false
-material = SubResource("StandardMaterial3D_jurii")
-
-[node name="Hitbox" parent="." index="2" unique_id=700711057]
+[node name="Hitbox" parent="." index="1" unique_id=700711057]
 base_damage_instance = SubResource("Resource_lmv4e")
 
-[node name="CSGTorus3D" type="CSGTorus3D" parent="." index="3" unique_id=2016755545]
+[node name="CSGTorus3D" parent="." index="2" unique_id=960780157]
+visible = false
+
+[node name="CSGTorus3D2" type="CSGTorus3D" parent="." index="3" unique_id=2016755545]
 inner_radius = 0.3740345
 outer_radius = 0.4727046
 sides = 4

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://63blrdikirxp"]
+
+[ext_resource type="Script" uid="uid://okukkcd0ui87" path="res://entities/bosses/common/moves/move_components/projectile/projectile_radial/projectile_radial.gd" id="1_j67o5"]
+[ext_resource type="Script" uid="uid://dqikncagugm3f" path="res://entities/bosses/common/moves/move_components/projectile/projectile.gd" id="2_uhgak"]
+
+[node name="ProjectileRadial" type="Node" unique_id=1544666761]
+script = ExtResource("1_j67o5")
+metadata/_custom_type_script = "uid://okukkcd0ui87"
+
+[node name="BossActionProjectileComponent" type="Node" parent="." unique_id=936493392]
+script = ExtResource("2_uhgak")
+metadata/_custom_type_script = "uid://dqikncagugm3f"

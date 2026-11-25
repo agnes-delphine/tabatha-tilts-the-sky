@@ -1,0 +1,208 @@
+[gd_scene format=3 uid="uid://osw516b546pt"]
+
+[ext_resource type="Script" uid="uid://d3vkryj65wcsa" path="res://entities/bosses/evil_donut/evil_donut.gd" id="1_klst3"]
+[ext_resource type="PackedScene" uid="uid://2uheb5mydivy" path="res://entities/common/components/hurtbox/hurtbox.tscn" id="2_ykpv7"]
+[ext_resource type="Script" uid="uid://gfsbbqbsg80" path="res://entities/common/components/hitbox/hitbox.gd" id="3_r8f44"]
+[ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="4_livtq"]
+[ext_resource type="Script" uid="uid://dlei2wuc8hlb7" path="res://entities/player/scripts/particles_on_hurt_component.gd" id="5_tyi15"]
+[ext_resource type="PackedScene" uid="uid://c71r4s76o7tic" path="res://entities/common/scenes/sparks_emitter.tscn" id="6_31sk6"]
+[ext_resource type="Script" uid="uid://lg0megdaotlh" path="res://entities/bosses/common/boss_death_component.gd" id="7_e8evs"]
+[ext_resource type="Script" uid="uid://d3m60pwowjhsc" path="res://entities/bosses/common/poise/poise_component.gd" id="8_o1k7m"]
+[ext_resource type="Script" uid="uid://fskgl7ceqcrn" path="res://entities/bosses/common/boss_health/boss_health_component.gd" id="9_6bmxe"]
+[ext_resource type="Script" uid="uid://dcuuy1udockn1" path="res://entities/bosses/common/boss_projectile_source_component.gd" id="10_pbdpo"]
+[ext_resource type="PackedScene" uid="uid://d00bqkqetrmda" path="res://entities/bosses/common/projectiles/base/basic_projectile.tscn" id="11_sktv4"]
+[ext_resource type="PackedScene" uid="uid://doaixa4bnqfi4" path="res://entities/bosses/common/projectiles/base/basic_dashable_projectile.tscn" id="12_ejlxi"]
+[ext_resource type="PackedScene" uid="uid://cvx0d4f1reawt" path="res://entities/bosses/common/projectiles/base/basic_slidable_projectile.tscn" id="13_t4y0t"]
+[ext_resource type="PackedScene" uid="uid://dmdqsdiu1doc5" path="res://entities/bosses/common/projectiles/base/basic_parriable_projectile.tscn" id="14_df0gy"]
+[ext_resource type="Script" uid="uid://dj7n4yaimkok2" path="res://entities/bosses/common/boss_moveset_controller.gd" id="15_5w6xo"]
+[ext_resource type="Script" uid="uid://dw66uv2beeexn" path="res://entities/bosses/evil_donut/boss_projectile_manager_component.gd" id="15_ykpv7"]
+[ext_resource type="Script" uid="uid://d4kiiyn31sg8x" path="res://entities/bosses/common/moves/move_to_player.gd" id="16_mqi32"]
+[ext_resource type="Script" uid="uid://b5ap6k8tpkvp7" path="res://entities/bosses/common/moves/move_components/targets_player.gd" id="17_4lxdn"]
+[ext_resource type="Script" uid="uid://qp6w033rhofu" path="res://entities/bosses/common/moves/move_to_center.gd" id="18_4x32n"]
+[ext_resource type="Script" uid="uid://4p6rarju15hm" path="res://entities/bosses/common/moves/move_to_random.gd" id="19_cy5xk"]
+[ext_resource type="Script" uid="uid://dfgqq3s7hs5cn" path="res://entities/bosses/common/abstract/boss_moves/base_boss_move.gd" id="20_n0nbi"]
+[ext_resource type="PackedScene" uid="uid://dhvxxnykj6dyn" path="res://entities/bosses/common/moves/move_components/projectile/projectile_burst/projectile_burst.tscn" id="21_026qv"]
+[ext_resource type="PackedScene" uid="uid://63blrdikirxp" path="res://entities/bosses/common/moves/move_components/projectile/projectile_radial/projectile_radial.tscn" id="22_n4kqj"]
+[ext_resource type="Script" uid="uid://bi42xvwdhfhyq" path="res://entities/bosses/common/boss_state_controller.gd" id="23_2yqqt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
+radius = 1.9521484
+height = 3.9042969
+
+[sub_resource type="Resource" id="Resource_owtkv"]
+script = ExtResource("4_livtq")
+health_damage = 10
+metadata/_custom_type_script = "uid://cdfq2i21dytg3"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kords"]
+radius = 1.892854
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5h7e"]
+albedo_color = Color(1, 0, 0, 1)
+
+[node name="EvilDonutOfDoom" type="Node3D" unique_id=518221447 node_paths=PackedStringArray("boss_health", "boss_poise", "projectile_source")]
+script = ExtResource("1_klst3")
+boss_id = &"pure_soldier"
+boss_health = NodePath("Components/BossHealthComponent")
+boss_poise = NodePath("Components/BossPoiseComponent")
+projectile_source = NodePath("Components/BossProjectileSourceComponent")
+
+[node name="Hurtbox" parent="." unique_id=923501376 node_paths=PackedStringArray("healthComponent") instance=ExtResource("2_ykpv7")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0658702, 0)
+collision_layer = 4
+healthComponent = NodePath("../Components/BossHealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=150151617]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2664671, 0)
+shape = SubResource("CapsuleShape3D_g4v7s")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=288140482]
+unique_name_in_owner = true
+collision_layer = 4
+script = ExtResource("3_r8f44")
+base_damage_instance = SubResource("Resource_owtkv")
+metadata/_custom_type_script = "uid://gfsbbqbsg80"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=999103261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6695051, 0)
+shape = SubResource("SphereShape3D_kords")
+
+[node name="Components" type="Node" parent="." unique_id=782427936]
+
+[node name="ParticlesOnResourceChangeComponent" type="Node" parent="Components" unique_id=839287423 node_paths=PackedStringArray("character", "resources")]
+script = ExtResource("5_tyi15")
+character = NodePath("../..")
+resources = [NodePath("../BossPoiseComponent"), NodePath("../BossHealthComponent")]
+particles = ExtResource("6_31sk6")
+
+[node name="BossDeathComponent" type="Node" parent="Components" unique_id=119824038 node_paths=PackedStringArray("health")]
+unique_name_in_owner = true
+script = ExtResource("7_e8evs")
+health = NodePath("../BossHealthComponent")
+
+[node name="BossPoiseComponent" type="Node" parent="Components" unique_id=1049370795]
+unique_name_in_owner = true
+script = ExtResource("8_o1k7m")
+
+[node name="BossHealthComponent" type="Node" parent="Components" unique_id=1027031696]
+unique_name_in_owner = true
+script = ExtResource("9_6bmxe")
+max_resource = 3.0
+
+[node name="BossProjectileSourceComponent" type="Node" parent="Components" unique_id=1275618508]
+unique_name_in_owner = true
+script = ExtResource("10_pbdpo")
+basic_projectile_scene = ExtResource("11_sktv4")
+dashable_projectile_scene = ExtResource("12_ejlxi")
+slideable_projectile_scene = ExtResource("13_t4y0t")
+parriable_projectile_scene = ExtResource("14_df0gy")
+
+[node name="BossProjectileManagerComponent" type="Node" parent="Components" unique_id=1411783405]
+unique_name_in_owner = true
+script = ExtResource("15_ykpv7")
+
+[node name="BossMovesetController" type="Node" parent="." unique_id=1445894284]
+unique_name_in_owner = true
+script = ExtResource("15_5w6xo")
+global_delay_multiplier = 0.1
+
+[node name="MoveToPlayer" type="Node" parent="BossMovesetController" unique_id=2030288426]
+script = ExtResource("16_mqi32")
+enabled = false
+move_id = &"BaseBossMoveToPlayer"
+move_weight = 0.4
+min_delay = 0.5
+max_delay = 0.5
+
+[node name="BossActionTargetsPlayerComponent" type="Node" parent="BossMovesetController/MoveToPlayer" unique_id=1075378376]
+script = ExtResource("17_4lxdn")
+metadata/_custom_type_script = "uid://b5ap6k8tpkvp7"
+
+[node name="MoveToCenter" type="Node" parent="BossMovesetController" unique_id=863161502]
+script = ExtResource("18_4x32n")
+enabled = false
+move_id = &"BaseBossMoveToCenter"
+move_weight = 0.2
+min_delay = 0.7
+max_delay = 1.0
+
+[node name="MoveToRandom" type="Node" parent="BossMovesetController" unique_id=976559923]
+script = ExtResource("19_cy5xk")
+enabled = false
+move_id = &"BaseBossMoveToRandom"
+
+[node name="FireAtPlayer" type="Node" parent="BossMovesetController" unique_id=1637332864]
+script = ExtResource("20_n0nbi")
+enabled = false
+move_id = &"FireAtPlayer"
+metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
+
+[node name="ProjectileBurst" parent="BossMovesetController/FireAtPlayer" unique_id=564006782 instance=ExtResource("21_026qv")]
+
+[node name="BossActionProjectileComponent" parent="BossMovesetController/FireAtPlayer/ProjectileBurst" index="0" unique_id=70900920]
+projectile_type = 3
+
+[node name="FireAtPlayerTwice" type="Node" parent="BossMovesetController" unique_id=598328801 node_paths=PackedStringArray("next_move")]
+script = ExtResource("20_n0nbi")
+enabled = false
+move_id = &"FireAtPlayerTwice"
+next_move = NodePath("../FireAtPlayer")
+metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
+
+[node name="ProjectileBurst" parent="BossMovesetController/FireAtPlayerTwice" unique_id=1925918258 instance=ExtResource("21_026qv")]
+
+[node name="BossActionProjectileComponent" parent="BossMovesetController/FireAtPlayerTwice/ProjectileBurst" index="0" unique_id=70900920]
+random_projectile_type = 1
+
+[node name="FireAtCardinals" type="Node" parent="BossMovesetController" unique_id=1044715486]
+script = ExtResource("20_n0nbi")
+enabled = false
+move_id = &"FireAtCardinals"
+metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
+
+[node name="ProjectileRadial" parent="BossMovesetController/FireAtCardinals" unique_id=1544666761 instance=ExtResource("22_n4kqj")]
+
+[node name="BossActionProjectileComponent" parent="BossMovesetController/FireAtCardinals/ProjectileRadial" index="0" unique_id=936493392]
+random_projectile_type = 1
+
+[node name="FireAtDiagonals" type="Node" parent="BossMovesetController" unique_id=1977617505]
+script = ExtResource("20_n0nbi")
+enabled = false
+move_id = &"FireAtDiagonals"
+metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
+
+[node name="ProjectileRadial" parent="BossMovesetController/FireAtDiagonals" unique_id=1610503838 instance=ExtResource("22_n4kqj")]
+start_angle_degrees = 45.0
+
+[node name="BossActionProjectileComponent" parent="BossMovesetController/FireAtDiagonals/ProjectileRadial" index="0" unique_id=936493392]
+random_projectile_type = 1
+
+[node name="FireAtCardinalsAndDiagonals" type="Node" parent="BossMovesetController" unique_id=549072457]
+script = ExtResource("20_n0nbi")
+move_id = &"FireAtCardinalsAndDiagonals"
+metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
+
+[node name="ProjectileRadial" parent="BossMovesetController/FireAtCardinalsAndDiagonals" unique_id=920121499 instance=ExtResource("22_n4kqj")]
+projectile_count = 16
+fire_delay = 0.05
+
+[node name="BossActionProjectileComponent" parent="BossMovesetController/FireAtCardinalsAndDiagonals/ProjectileRadial" index="0" unique_id=936493392]
+random_projectile_type = 2
+
+[node name="BossStateController" type="Node" parent="." unique_id=316893497]
+script = ExtResource("23_2yqqt")
+
+[node name="DoomNut" type="CSGTorus3D" parent="." unique_id=1895680408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7380254, 0)
+inner_radius = 1.264
+outer_radius = 2.0
+sides = 10
+ring_sides = 10
+material = SubResource("StandardMaterial3D_o5h7e")
+
+[editable path="BossMovesetController/FireAtPlayer/ProjectileBurst"]
+[editable path="BossMovesetController/FireAtPlayerTwice/ProjectileBurst"]
+[editable path="BossMovesetController/FireAtCardinals/ProjectileRadial"]
+[editable path="BossMovesetController/FireAtDiagonals/ProjectileRadial"]
+[editable path="BossMovesetController/FireAtCardinalsAndDiagonals/ProjectileRadial"]

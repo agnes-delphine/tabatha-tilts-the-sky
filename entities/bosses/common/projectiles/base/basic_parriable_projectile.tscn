@@ -5,9 +5,6 @@
 [ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="3_7lixt"]
 [ext_resource type="PackedScene" uid="uid://c71r4s76o7tic" path="res://entities/common/scenes/sparks_emitter.tscn" id="4_p2dp6"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjuh4"]
-albedo_color = Color(1, 0, 0, 1)
-
 [sub_resource type="Resource" id="Resource_45jm1"]
 script = ExtResource("3_7lixt")
 health_damage = 1
@@ -26,13 +23,8 @@ albedo_color = Color(1, 0, 0, 1)
 
 [node name="BasicParriableProjectile" unique_id=1297863229 instance=ExtResource("1_jjuh4")]
 
-[node name="CSGSphere3D" parent="." index="1" unique_id=78548540]
-unique_name_in_owner = true
+[node name="CSGTorus3D" parent="." index="2" unique_id=960780157]
 visible = false
-material = SubResource("StandardMaterial3D_jjuh4")
-
-[node name="Hitbox" parent="." index="2" unique_id=700711057]
-unique_name_in_owner = true
 
 [node name="ParryBox" type="Area3D" parent="." index="3" unique_id=181142295]
 collision_layer = 4

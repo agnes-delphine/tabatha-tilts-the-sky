@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dhvxxnykj6dyn"]
+
+[ext_resource type="Script" uid="uid://gj5h4oimoimm" path="res://entities/bosses/common/moves/move_components/projectile/projectile_burst/projectile_burst.gd" id="1_tasdm"]
+[ext_resource type="Script" uid="uid://dqikncagugm3f" path="res://entities/bosses/common/moves/move_components/projectile/projectile.gd" id="2_1j7xl"]
+[ext_resource type="Script" uid="uid://b5ap6k8tpkvp7" path="res://entities/bosses/common/moves/move_components/targets_player.gd" id="3_nujcj"]
+
+[node name="ProjectileBurst" type="Node" unique_id=564006782]
+script = ExtResource("1_tasdm")
+metadata/_custom_type_script = "uid://gj5h4oimoimm"
+
+[node name="BossActionProjectileComponent" type="Node" parent="." unique_id=70900920]
+script = ExtResource("2_1j7xl")
+metadata/_custom_type_script = "uid://dqikncagugm3f"
+
+[node name="BossActionTargetsPlayerComponent" type="Node" parent="." unique_id=1152622616]
+script = ExtResource("3_nujcj")
+metadata/_custom_type_script = "uid://b5ap6k8tpkvp7"

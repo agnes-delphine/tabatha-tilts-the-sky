@@ -1,6 +1,6 @@
 extends BaseBossMove
 
-func execute() -> void:
+func execute_move() -> void:
 	var center_pos = ArenaManager.arena_center.global_position
 	var target_pos := Vector3(
 		center_pos.x,

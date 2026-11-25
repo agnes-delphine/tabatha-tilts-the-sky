@@ -1,10 +1,9 @@
-extends BaseBossMove
-class_name BaseBossMoveTargetPlayer
+extends BaseBossActionComponent
+class_name BossActionTargetsPlayerComponent
 
 var player : Player
 
 func _ready() -> void:
-	super()
 	PlayerManager.player_registered.connect(_on_player_registered)
 
 func _on_player_registered(_player: Player) -> void:

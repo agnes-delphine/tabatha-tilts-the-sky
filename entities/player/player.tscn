@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://bvqwnm14p1ogf" path="res://entities/common/components/hitbox/hitbox.tscn" id="6_t1t22"]
 [ext_resource type="Script" uid="uid://cxtox5wjb06pt" path="res://entities/player/scripts/player_dodge_component.gd" id="8_qpopc"]
 [ext_resource type="Script" uid="uid://bb447pxgwdyld" path="res://entities/common/components/death/death_component.gd" id="8_wq0jh"]
-[ext_resource type="Script" uid="uid://cpahiialqgf7h" path="res://entities/player/scripts/close_game_on_death_component.gd" id="9_wq0jh"]
 [ext_resource type="Script" uid="uid://dk28pf187i2k7" path="res://entities/common/scripts/health_component/health_component.gd" id="11_afbqv"]
 [ext_resource type="Script" uid="uid://jgceaiyogkns" path="res://entities/common/scripts/stamina_component/stamina_component.gd" id="12_gx6sm"]
 [ext_resource type="Script" uid="uid://brlj2y6fhndkc" path="res://entities/player/scripts/attacker_component.gd" id="13_we0b7"]
@@ -45,7 +44,7 @@ damage_type = 0
 metadata/_custom_type_script = "uid://cdfq2i21dytg3"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
-size = Vector3(1.5, 1, 2)
+size = Vector3(2.9072266, 1, 1.8531494)
 
 [sub_resource type="Resource" id="Resource_8fjmc"]
 script = ExtResource("3_fkugw")
@@ -124,7 +123,7 @@ base_damage_instance = SubResource("Resource_yj6s3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Model/AttackHitbox" unique_id=1622328254]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5734253)
 shape = SubResource("BoxShape3D_g4v7s")
 
 [node name="Components" type="Node" parent="." unique_id=1563754300]
@@ -142,9 +141,6 @@ unique_name_in_owner = true
 script = ExtResource("8_wq0jh")
 health = NodePath("..")
 
-[node name="CloseGameOnDeathComponent" type="Node" parent="Components/HealthComponent/DeathComponent" unique_id=1142775412]
-script = ExtResource("9_wq0jh")
-
 [node name="StaminaComponent" type="Node" parent="Components" unique_id=1175043731]
 unique_name_in_owner = true
 script = ExtResource("12_gx6sm")
@@ -153,7 +149,7 @@ increase_rate = 7.5
 [node name="CameraComponent" type="Node" parent="Components" unique_id=633656761]
 unique_name_in_owner = true
 script = ExtResource("3_8fjmc")
-rotation_speed = 36.0
+rotation_speed = 50.0
 
 [node name="MovementComponent" type="Node" parent="Components" unique_id=101337582 node_paths=PackedStringArray("player", "camera", "model", "player_state", "speed_modifier", "attacker_state")]
 script = ExtResource("2_fkugw")
@@ -256,12 +252,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -2.0
-offset_top = -11.5
-offset_right = 2.0
+offset_left = -75.0
+offset_top = -7.5
+offset_right = 75.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("16_3wlsy")
 script = ExtResource("21_wuv6x")
 metadata/_custom_type_script = "uid://dh7h1w6cotva0"
 

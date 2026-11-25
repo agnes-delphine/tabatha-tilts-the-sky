@@ -68,7 +68,7 @@ func get_move_input(delta: float) -> void:
 		var target_yaw := atan2(dir.x, dir.z)
 
 		## Model follows the cursor if charging attack
-		if !attacker_state.is_state(attacker_state.AttackerState.READY):
+		if !attacker_state.is_state(attacker_state.AttackerState.ATTACKING):
 			model.rotation.y = lerp_angle(
 				model.rotation.y,
 				target_yaw,

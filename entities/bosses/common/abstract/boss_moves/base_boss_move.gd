@@ -18,7 +18,7 @@ class_name BaseBossMove
 @export var max_delay := 3.0
 ## Should this move be executed more than once in a row?
 @export var repeatable := false
-## If this move is part of a chain, what's the next one?
+## What's the next move in the chain, if it exists?
 @export var next_move : BaseBossMove
 
 ## The boss using this move.
@@ -38,8 +38,16 @@ func _ready() -> void:
 func _on_boss_registered(_boss: Boss) -> void:
 	boss = _boss
 
-## What actually happens when the move is executed.
+## Execute the children. (Jeez, that sounds dark.)
 func execute() -> void:
+	for child in get_children():
+		if child is BaseBossActionComponent:
+			child.execute()
+	
+	execute_move()
+
+## This is overriden for other effects.
+func execute_move() -> void:
 	pass
 
 ## This should return true if the move can be used at this current point in time.

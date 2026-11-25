@@ -1,8 +1,11 @@
-extends BaseBossMoveTargetPlayer
+extends BaseBossMove
 
-func execute() -> void:
+@onready var targets_player: BossActionTargetsPlayerComponent = $BossActionTargetsPlayerComponent
+
+func execute_move() -> void:
+	
 	var boss_pos := boss.global_position
-	var player_pos := get_player_pos()
+	var player_pos := targets_player.get_player_pos()
 
 	var target_pos := Vector3(
 		lerp(boss_pos.x, player_pos.x, 0.5),
@@ -16,7 +19,7 @@ func execute() -> void:
 	tween = create_tween()
 	tween.tween_property(boss, "global_position", target_pos, 0.5)
 
-	RotationManager.rotate_towards_target(boss, player, 0.1)
+	RotationManager.rotate_towards_target(boss, targets_player.player, 0.1)
 
 func is_valid() -> bool:
-	return get_player_pos().distance_to(boss.global_position) >= 10.0
+	return targets_player.get_player_pos().distance_to(boss.global_position) >= 10.0

@@ -7,7 +7,7 @@ class_name Hurtbox
 @onready var collider: CollisionShape3D = $CollisionShape3D
 
 func set_collider_state(state: bool) -> void:
-	collider.disabled = !state
+	collider.set_deferred("disabled", !state)
 
 signal hurtbox_hit(hit_by: Hitbox)
 

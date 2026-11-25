@@ -42,6 +42,7 @@ theme_override_constants/separation = 25
 alignment = 1
 
 [node name="Title" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer" unique_id=914034022]
+visible = false
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 theme = ExtResource("2_ioe73")

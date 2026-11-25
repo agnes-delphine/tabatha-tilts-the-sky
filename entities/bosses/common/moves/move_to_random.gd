@@ -2,7 +2,7 @@ extends BaseBossMove
 
 @export var radius := 10.0
 
-func execute() -> void:
+func execute_move() -> void:
 	var angle := randf() * TAU
 	var distance := sqrt(randf()) * radius
 	var offset: Vector3 = Vector3(cos(angle), 0.0, sin(angle)) * distance
