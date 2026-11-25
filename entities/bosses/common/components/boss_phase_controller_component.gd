@@ -14,4 +14,4 @@ func set_phase(new_phase: BaseBossPhase) -> void:
 	
 	phase_changed.emit(new_phase)
 	
-	print("-- Phase set to %s --" % new_phase)
+	Log.prn("-- Phase set to %s --" % new_phase)

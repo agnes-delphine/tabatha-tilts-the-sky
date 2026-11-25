@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_fkugw"]
 [ext_resource type="PackedScene" uid="uid://2uheb5mydivy" path="res://entities/common/components/hurtbox/hurtbox.tscn" id="3_we0b7"]
 [ext_resource type="Script" uid="uid://bhh1j88xsf1nh" path="res://entities/player/scripts/movement_speed_modifier_component.gd" id="3_wvtmh"]
+[ext_resource type="Script" uid="uid://bj6w0y4mddvq4" path="res://entities/player/scripts/action_pivot.gd" id="4_bwdx1"]
 [ext_resource type="Script" uid="uid://bs7t2n2cah5ix" path="res://entities/player/scripts/player_state_component.gd" id="4_qiwj3"]
 [ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="5_qpopc"]
 [ext_resource type="Script" uid="uid://fk5wh71mvugw" path="res://entities/player/scripts/slide_component.gd" id="6_bectd"]
@@ -20,7 +21,6 @@
 [ext_resource type="Script" uid="uid://cnvbm0dfi6k4w" path="res://entities/player/scripts/death_box.gd" id="10_24ehl"]
 [ext_resource type="Script" uid="uid://dk28pf187i2k7" path="res://entities/common/scripts/health_component/health_component.gd" id="11_afbqv"]
 [ext_resource type="PackedScene" uid="uid://dvdiwvvd2ktnw" path="res://ui/menus/death_menu/death_menu.tscn" id="11_bwdx1"]
-[ext_resource type="Script" uid="uid://jgceaiyogkns" path="res://entities/common/scripts/stamina_component/stamina_component.gd" id="12_gx6sm"]
 [ext_resource type="Script" uid="uid://brlj2y6fhndkc" path="res://entities/player/scripts/attacker_component.gd" id="13_we0b7"]
 [ext_resource type="Script" uid="uid://coidtqdley7x2" path="res://entities/player/scripts/attacker_state_component.gd" id="15_eyb6c"]
 [ext_resource type="Theme" uid="uid://bwf5joplin0n8" path="res://ui/themes/loading_bar.tres" id="16_3wlsy"]
@@ -40,15 +40,15 @@ height = 2.25
 radius = 0.43896484
 height = 4.5356445
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(2.9072266, 1, 1.8531494)
+
 [sub_resource type="Resource" id="Resource_yj6s3"]
 script = ExtResource("5_qpopc")
 health_damage = 1
 poise_damage = 20
 damage_type = 0
 metadata/_custom_type_script = "uid://cdfq2i21dytg3"
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
-size = Vector3(2.9072266, 1, 1.8531494)
 
 [sub_resource type="Resource" id="Resource_8fjmc"]
 script = ExtResource("3_fkugw")
@@ -58,9 +58,6 @@ bg_color = Color(0.09239706, 0.09239707, 0.092397, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3wlsy"]
 bg_color = Color(0.27459186, 0.6935326, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_50fht"]
-bg_color = Color(0.34108725, 0.6404022, 0.67417485, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghoj8"]
 bg_color = Color(0.12591082, 0.12591085, 0.12591076, 1)
@@ -117,26 +114,30 @@ height = 0.378
 unique_name_in_owner = true
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.2743042, 0)
 
-[node name="AttackHitbox" parent="Model" unique_id=135541384 node_paths=PackedStringArray("attacker") instance=ExtResource("6_t1t22")]
+[node name="ActionPivot" type="Node3D" parent="." unique_id=238505187]
 unique_name_in_owner = true
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.5486083, 4.195002)
+script = ExtResource("4_bwdx1")
+
+[node name="ParryHitbox" type="Area3D" parent="ActionPivot" unique_id=2141905235]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.097501)
+collision_mask = 12
+script = ExtResource("6_wq0jh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ActionPivot/ParryHitbox" unique_id=2012908052]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5734253)
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="AttackHitbox" parent="ActionPivot" unique_id=135541384 node_paths=PackedStringArray("attacker") instance=ExtResource("6_t1t22")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.097501)
 collision_layer = 1
 collision_mask = 4
 attacker = NodePath("../../Components/AttackerComponent")
 base_damage_instance = SubResource("Resource_yj6s3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Model/AttackHitbox" unique_id=1622328254]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ActionPivot/AttackHitbox" unique_id=1622328254]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5734253)
-shape = SubResource("BoxShape3D_g4v7s")
-
-[node name="ParryHitbox" type="Area3D" parent="Model" unique_id=2141905235]
-unique_name_in_owner = true
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.5486083, 4.195002)
-collision_mask = 12
-script = ExtResource("6_wq0jh")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Model/ParryHitbox" unique_id=2012908052]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5734253)
 shape = SubResource("BoxShape3D_g4v7s")
 
@@ -158,11 +159,6 @@ health = NodePath("..")
 [node name="ChangeSceneOnDeathComponent" type="Node" parent="Components/HealthComponent/DeathComponent" unique_id=1059031324]
 script = ExtResource("10_24ehl")
 scene = ExtResource("11_bwdx1")
-
-[node name="StaminaComponent" type="Node" parent="Components" unique_id=1175043731]
-unique_name_in_owner = true
-script = ExtResource("12_gx6sm")
-increase_rate = 7.5
 
 [node name="CameraComponent" type="Node" parent="Components" unique_id=633656761]
 unique_name_in_owner = true
@@ -200,6 +196,7 @@ state = NodePath("../../PlayerStateComponent")
 [node name="PlayerDodgeComponent" type="Node" parent="Components" unique_id=526880437]
 unique_name_in_owner = true
 script = ExtResource("8_qpopc")
+charge_bonus_on_dodge = 20.0
 
 [node name="AttackerComponent" type="Node" parent="Components" unique_id=1437867338]
 unique_name_in_owner = true
@@ -231,6 +228,10 @@ unique_name_in_owner = true
 wait_time = 0.2
 one_shot = true
 
+[node name="ParryCooldownTimer" type="Timer" parent="Components/ParryComponent" unique_id=1253480967]
+unique_name_in_owner = true
+one_shot = true
+
 [node name="CameraGroup" type="Node" parent="." unique_id=1406050078]
 
 [node name="CameraPivot" type="Node3D" parent="CameraGroup" unique_id=462089270]
@@ -241,7 +242,7 @@ unique_name_in_owner = true
 physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1.7881393e-07, 0.99999994, 0, -0.99999994, 1.7881393e-07, 0, 8, 5.364418e-07)
 top_level = true
-fov = 90.0
+fov = 100.0
 
 [node name="PhantomCameraHost" type="Node" parent="CameraGroup/CameraPivot/Camera3D" unique_id=197406305]
 process_priority = 300
@@ -270,31 +271,15 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 [node name="PlayerUI" type="CanvasLayer" parent="." unique_id=1534802610]
 unique_name_in_owner = true
 
-[node name="AttackChargeBar" type="ProgressBar" parent="PlayerUI" unique_id=15097787]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -75.0
-offset_top = -7.5
-offset_right = 75.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("16_3wlsy")
-script = ExtResource("21_wuv6x")
-metadata/_custom_type_script = "uid://dh7h1w6cotva0"
-
 [node name="PlayerStatsPanel" type="Panel" parent="PlayerUI" unique_id=157490109]
-custom_minimum_size = Vector2(400, 100)
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -107.0
-grow_vertical = 0
+custom_minimum_size = Vector2(400, 70)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_right = 200.0
+offset_bottom = 50.0
+grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gx6sm")
 
 [node name="MarginContainer" type="MarginContainer" parent="PlayerUI/PlayerStatsPanel" unique_id=124682245]
@@ -312,7 +297,7 @@ theme_override_constants/margin_bottom = 10
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerUI/PlayerStatsPanel/MarginContainer" unique_id=1409982635]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 10
+theme_override_constants/separation = 2
 alignment = 1
 
 [node name="HealthBar" type="ProgressBar" parent="PlayerUI/PlayerStatsPanel/MarginContainer/VBoxContainer" unique_id=497501190]
@@ -325,15 +310,13 @@ theme = ExtResource("16_3wlsy")
 theme_override_styles/fill = SubResource("StyleBoxFlat_3wlsy")
 value = 100.0
 
-[node name="StaminaBar" type="ProgressBar" parent="PlayerUI/PlayerStatsPanel/MarginContainer/VBoxContainer" unique_id=2067674005]
+[node name="AttackChargeBar" type="ProgressBar" parent="PlayerUI/PlayerStatsPanel/MarginContainer/VBoxContainer" unique_id=15097787]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 25)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
 theme = ExtResource("16_3wlsy")
-theme_override_styles/fill = SubResource("StyleBoxFlat_50fht")
-value = 100.0
+script = ExtResource("21_wuv6x")
+metadata/_custom_type_script = "uid://dh7h1w6cotva0"
 
 [node name="BossPanel" type="Panel" parent="PlayerUI" unique_id=127710228]
 custom_minimum_size = Vector2(100, 300)

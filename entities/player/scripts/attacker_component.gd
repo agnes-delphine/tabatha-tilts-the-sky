@@ -1,7 +1,7 @@
 extends Node
 class_name AttackerComponent
 
-@onready var model: Node3D = %Model
+@onready var action_pivot: Node3D = %ActionPivot
 
 @onready var camera_component: CameraComponent = %CameraComponent
 @onready var camera_focus: Node3D = %CameraFocus
@@ -25,7 +25,6 @@ func _input(event: InputEvent) -> void:
 		if attacking or !attacker_charge.is_charged():
 			return
 		
-		RotationManager.rotate_towards_target(model, camera_focus, 0)
 		attack()
 
 func attack() -> void:

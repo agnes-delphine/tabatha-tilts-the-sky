@@ -4,7 +4,6 @@ class_name DashComponent
 @export var player: Player
 @export var camera: PhantomCamera3D
 @export var player_state: PlayerStateComponent
-@onready var stamina: StaminaComponent = %StaminaComponent
 @onready var camera_focus: Node3D = %CameraFocus
 
 @export_category("Dash")
@@ -12,8 +11,6 @@ class_name DashComponent
 @export var dash_duration := 0.15
 @export var dash_cooldown := 0.5
 @export var dash_input := "dash"
-
-@export var stamina_cost := 25.0
 
 var is_dashing := false
 var can_dash := true
@@ -50,11 +47,6 @@ func try_dash() -> void:
 
 	if direction == Vector3.ZERO:
 		return
-	
-	if stamina.resource < stamina_cost:
-		return
-	
-	stamina.decrease(stamina_cost)
 	
 	RotationManager.rotate_towards_target(player.model, camera_focus, 0.2)
 

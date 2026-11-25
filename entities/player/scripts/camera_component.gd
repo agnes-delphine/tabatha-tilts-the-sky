@@ -15,23 +15,21 @@ class_name CameraComponent
 @export var rotation_speed := 18.0
 var following_target : Node3D
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_instance_valid(following_target):
-		_handle_follow(delta, following_target)
+		follow_target(delta, model, following_target)
 
 	var viewport := get_viewport()
-	var cam := viewport.get_camera_3d() # the real Camera3D PhantomCamera drives
+	var cam := viewport.get_camera_3d()
 	if cam == null:
 		return
 
 	var viewport_size := viewport.get_visible_rect().size
 	var mouse_position := viewport.get_mouse_position()
 
-	# Where the player appears on screen (not necessarily the center when locked on)
 	var player_screen_pos := cam.unproject_position(player_position())
 	var mouse_offset := mouse_position - player_screen_pos
 
-	# Normalize by half the screen size so the range is consistent
 	var half_size := viewport_size * 0.5
 	var normalized_offset := Vector2(
 		mouse_offset.x / half_size.x,
@@ -55,9 +53,10 @@ func _process(delta: float) -> void:
 		desired_position,
 		1.0 - exp(-look_smoothing * delta)
 	)
-	
-func _handle_follow(delta: float, target: Node3D) -> void:
-	var direction := target.global_position - model.global_position
+
+## Rotates a given node towards another node every frame.
+func follow_target(delta: float, follower: Node3D, followed: Node3D, _rotation_speed : float = rotation_speed) -> void:
+	var direction := followed.global_position - follower.global_position
 	direction.y = 0.0
 
 	if direction.length_squared() <= 0.001:
@@ -67,10 +66,10 @@ func _handle_follow(delta: float, target: Node3D) -> void:
 
 	var target_rotation := atan2(direction.x, direction.z)
 
-	model.rotation.y = lerp_angle(
-		model.rotation.y,
+	follower.rotation.y = lerp_angle(
+		follower.rotation.y,
 		target_rotation,
-		rotation_speed * delta
+		_rotation_speed * delta
 	)
 	
 func player_position() -> Vector3:

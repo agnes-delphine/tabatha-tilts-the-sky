@@ -4,7 +4,6 @@ class_name SlideComponent
 @export var player: Player
 @export var camera: Camera3D
 @export var state: PlayerStateComponent
-@onready var stamina: StaminaComponent = %StaminaComponent
 
 @export_category("Slide Settings")
 @export var minimum_steepness := 20.0
@@ -73,12 +72,8 @@ func start_slide() -> void:
 
 	if horizontal_velocity.length_squared() < 0.01:
 		return
-	
-	if stamina.resource < stamina_cost:
-		return
 
 	is_sliding = true
-	stamina.decrease(stamina_cost)
 
 	slide_speed = clampf(
 		horizontal_velocity.length() + slide_start_boost,

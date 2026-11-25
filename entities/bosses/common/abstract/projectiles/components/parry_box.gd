@@ -8,9 +8,6 @@ class_name ParryBox
 ## The damage the projectile does if parried.
 @export var damage_if_parried : DamageInstance
 
-## The current charge is multiplied by this and added to the poise damage.
-@export var charge_damage_scale := 0.1
-
 ## Particles when parried
 @export var particles : PackedScene
 
@@ -19,7 +16,7 @@ class_name ParryBox
 var default_material : StandardMaterial3D
 
 ## How much charge do you get for parrying this projectile?
-@export var charge_on_parried := 10.0
+@export var charge_on_parried := 15.0
 
 func _ready() -> void:
 	default_material = model.material

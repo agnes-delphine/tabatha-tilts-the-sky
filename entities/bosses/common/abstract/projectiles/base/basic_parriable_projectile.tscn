@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dmdqsdiu1doc5"]
 
-[ext_resource type="PackedScene" uid="uid://d00bqkqetrmda" path="res://entities/bosses/common/projectiles/base/basic_projectile.tscn" id="1_jjuh4"]
-[ext_resource type="Script" uid="uid://c5xv4uvfnfbcl" path="res://entities/bosses/common/projectiles/components/parry_box.gd" id="2_45jm1"]
+[ext_resource type="PackedScene" uid="uid://d00bqkqetrmda" path="res://entities/bosses/common/abstract/projectiles/base/basic_projectile.tscn" id="1_jjuh4"]
+[ext_resource type="Script" uid="uid://c5xv4uvfnfbcl" path="res://entities/bosses/common/abstract/projectiles/components/parry_box.gd" id="2_45jm1"]
 [ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="3_7lixt"]
 [ext_resource type="PackedScene" uid="uid://c71r4s76o7tic" path="res://entities/common/scenes/sparks_emitter.tscn" id="4_p2dp6"]
 

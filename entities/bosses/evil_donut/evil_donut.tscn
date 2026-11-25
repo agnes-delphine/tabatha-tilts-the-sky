@@ -6,24 +6,24 @@
 [ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="4_livtq"]
 [ext_resource type="Script" uid="uid://dlei2wuc8hlb7" path="res://entities/player/scripts/particles_on_hurt_component.gd" id="5_tyi15"]
 [ext_resource type="PackedScene" uid="uid://c71r4s76o7tic" path="res://entities/common/scenes/sparks_emitter.tscn" id="6_31sk6"]
-[ext_resource type="Script" uid="uid://lg0megdaotlh" path="res://entities/bosses/common/boss_death_component.gd" id="7_e8evs"]
-[ext_resource type="Script" uid="uid://d3m60pwowjhsc" path="res://entities/bosses/common/poise/poise_component.gd" id="8_o1k7m"]
-[ext_resource type="Script" uid="uid://fskgl7ceqcrn" path="res://entities/bosses/common/boss_health/boss_health_component.gd" id="9_6bmxe"]
-[ext_resource type="Script" uid="uid://dcuuy1udockn1" path="res://entities/bosses/common/boss_projectile_source_component.gd" id="10_pbdpo"]
-[ext_resource type="PackedScene" uid="uid://d00bqkqetrmda" path="res://entities/bosses/common/projectiles/base/basic_projectile.tscn" id="11_sktv4"]
-[ext_resource type="PackedScene" uid="uid://doaixa4bnqfi4" path="res://entities/bosses/common/projectiles/base/basic_dashable_projectile.tscn" id="12_ejlxi"]
-[ext_resource type="PackedScene" uid="uid://cvx0d4f1reawt" path="res://entities/bosses/common/projectiles/base/basic_slidable_projectile.tscn" id="13_t4y0t"]
-[ext_resource type="PackedScene" uid="uid://dmdqsdiu1doc5" path="res://entities/bosses/common/projectiles/base/basic_parriable_projectile.tscn" id="14_df0gy"]
-[ext_resource type="Script" uid="uid://dj7n4yaimkok2" path="res://entities/bosses/common/boss_moveset_controller.gd" id="15_5w6xo"]
-[ext_resource type="Script" uid="uid://dw66uv2beeexn" path="res://entities/bosses/evil_donut/boss_projectile_manager_component.gd" id="15_ykpv7"]
+[ext_resource type="Script" uid="uid://lg0megdaotlh" path="res://entities/bosses/common/components/boss_death_component.gd" id="7_e8evs"]
+[ext_resource type="Script" uid="uid://d3m60pwowjhsc" path="res://entities/bosses/common/components/poise_component.gd" id="8_o1k7m"]
+[ext_resource type="Script" uid="uid://fskgl7ceqcrn" path="res://entities/bosses/common/components/boss_health_component.gd" id="9_6bmxe"]
+[ext_resource type="Script" uid="uid://dcuuy1udockn1" path="res://entities/bosses/common/components/boss_projectile_source_component.gd" id="10_pbdpo"]
+[ext_resource type="PackedScene" uid="uid://d00bqkqetrmda" path="res://entities/bosses/common/abstract/projectiles/base/basic_projectile.tscn" id="11_sktv4"]
+[ext_resource type="PackedScene" uid="uid://doaixa4bnqfi4" path="res://entities/bosses/common/abstract/projectiles/base/basic_dashable_projectile.tscn" id="12_ejlxi"]
+[ext_resource type="PackedScene" uid="uid://cvx0d4f1reawt" path="res://entities/bosses/common/abstract/projectiles/base/basic_slidable_projectile.tscn" id="13_t4y0t"]
+[ext_resource type="PackedScene" uid="uid://dmdqsdiu1doc5" path="res://entities/bosses/common/abstract/projectiles/base/basic_parriable_projectile.tscn" id="14_df0gy"]
+[ext_resource type="Script" uid="uid://dj7n4yaimkok2" path="res://entities/bosses/common/components/boss_moveset_controller.gd" id="15_5w6xo"]
+[ext_resource type="Script" uid="uid://dw66uv2beeexn" path="res://entities/bosses/common/components/boss_projectile_manager_component.gd" id="15_ykpv7"]
 [ext_resource type="Script" uid="uid://d4kiiyn31sg8x" path="res://entities/bosses/common/moves/move_to_player.gd" id="16_mqi32"]
-[ext_resource type="Script" uid="uid://cxsi7xpkpx2k3" path="res://entities/bosses/common/boss_phase_controller_component.gd" id="16_r8f44"]
+[ext_resource type="Script" uid="uid://cxsi7xpkpx2k3" path="res://entities/bosses/common/components/boss_phase_controller_component.gd" id="16_r8f44"]
 [ext_resource type="Script" uid="uid://b5ap6k8tpkvp7" path="res://entities/bosses/common/moves/move_components/targets_player.gd" id="17_4lxdn"]
-[ext_resource type="Script" uid="uid://cg0y8165dprn1" path="res://entities/bosses/common/phase_change_on_health_damage_component.gd" id="17_livtq"]
+[ext_resource type="Script" uid="uid://cg0y8165dprn1" path="res://entities/bosses/common/components/phase_change_on_health_damage_component.gd" id="17_livtq"]
 [ext_resource type="Script" uid="uid://ddkcslor8fga0" path="res://entities/bosses/common/abstract/base_boss_phase.gd" id="17_ykpv7"]
 [ext_resource type="Script" uid="uid://qp6w033rhofu" path="res://entities/bosses/common/moves/move_to_center.gd" id="18_4x32n"]
 [ext_resource type="Script" uid="uid://4p6rarju15hm" path="res://entities/bosses/common/moves/move_to_random.gd" id="19_cy5xk"]
-[ext_resource type="Script" uid="uid://dfgqq3s7hs5cn" path="res://entities/bosses/common/abstract/boss_moves/base_boss_move.gd" id="20_n0nbi"]
+[ext_resource type="Script" uid="uid://dfgqq3s7hs5cn" path="res://entities/bosses/common/abstract/moves/base_boss_move.gd" id="20_n0nbi"]
 [ext_resource type="PackedScene" uid="uid://dhvxxnykj6dyn" path="res://entities/bosses/common/moves/move_components/projectile/projectile_burst/projectile_burst.tscn" id="21_026qv"]
 [ext_resource type="PackedScene" uid="uid://63blrdikirxp" path="res://entities/bosses/common/moves/move_components/projectile/projectile_radial/projectile_radial.tscn" id="22_n4kqj"]
 
@@ -146,11 +146,12 @@ max_delay = 1.0
 [node name="MoveToRandom" type="Node" parent="BossMovesetControllerComponent/PhaseOne" unique_id=976559923]
 script = ExtResource("19_cy5xk")
 move_id = &"BaseBossMoveToRandom"
+move_weight = 0.6
 
 [node name="FireAtPlayer" type="Node" parent="BossMovesetControllerComponent/PhaseOne" unique_id=1637332864]
 script = ExtResource("20_n0nbi")
 move_id = &"FireAtPlayer"
-metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
+repeatable = true
 
 [node name="ProjectileBurst" parent="BossMovesetControllerComponent/PhaseOne/FireAtPlayer" unique_id=564006782 instance=ExtResource("21_026qv")]
 pellet_count = 3
@@ -161,12 +162,11 @@ random_projectile_type = 1
 
 [node name="FireAtDiagonals" type="Node" parent="BossMovesetControllerComponent/PhaseOne" unique_id=1763813972]
 script = ExtResource("20_n0nbi")
-enabled = false
 move_id = &"FireAtDiagonals"
-metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
 
 [node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseOne/FireAtDiagonals" unique_id=1544666761 instance=ExtResource("22_n4kqj")]
 start_angle_degrees = 45.0
+fire_delay = 0.02
 
 [node name="BossActionProjectileComponent" parent="BossMovesetControllerComponent/PhaseOne/FireAtDiagonals/ProjectileRadial" index="0" unique_id=936493392]
 projectile_type = 3
@@ -201,7 +201,6 @@ move_id = &"BaseBossMoveToRandom"
 [node name="FireAtPlayer" type="Node" parent="BossMovesetControllerComponent/PhaseTwo" unique_id=1627747977]
 script = ExtResource("20_n0nbi")
 move_id = &"FireAtPlayer"
-metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
 
 [node name="ProjectileBurst" parent="BossMovesetControllerComponent/PhaseTwo/FireAtPlayer" unique_id=314884940 instance=ExtResource("21_026qv")]
 
@@ -212,7 +211,6 @@ projectile_type = 3
 script = ExtResource("20_n0nbi")
 enabled = false
 move_id = &"FireAtCardinals"
-metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
 
 [node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseTwo/FireAtCardinals" unique_id=1321807978 instance=ExtResource("22_n4kqj")]
 
@@ -223,7 +221,6 @@ random_projectile_type = 1
 script = ExtResource("20_n0nbi")
 enabled = false
 move_id = &"FireAtDiagonals"
-metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
 
 [node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseTwo/FireAtDiagonals" unique_id=124011043 instance=ExtResource("22_n4kqj")]
 start_angle_degrees = 45.0
@@ -235,7 +232,6 @@ random_projectile_type = 1
 script = ExtResource("20_n0nbi")
 move_id = &"FireAtCardinalsAndDiagonals"
 repeatable = true
-metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
 
 [node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseTwo/FireAtCardinalsAndDiagonals" unique_id=1027820076 instance=ExtResource("22_n4kqj")]
 projectile_count = 16
@@ -267,7 +263,6 @@ move_id = &"BaseBossMoveToRandom"
 [node name="FireAtPlayer" type="Node" parent="BossMovesetControllerComponent/PhaseThree" unique_id=576904257]
 script = ExtResource("20_n0nbi")
 move_id = &"FireAtPlayer"
-metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
 
 [node name="ProjectileBurst" parent="BossMovesetControllerComponent/PhaseThree/FireAtPlayer" unique_id=977441718 instance=ExtResource("21_026qv")]
 pellet_count = 8
@@ -280,7 +275,6 @@ projectile_type = 3
 script = ExtResource("20_n0nbi")
 move_id = &"FireAtCardinalsAndDiagonals"
 repeatable = true
-metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
 
 [node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseThree/FireAtCardinalsAndDiagonals" unique_id=1272184180 instance=ExtResource("22_n4kqj")]
 projectile_count = 32
@@ -294,7 +288,6 @@ script = ExtResource("20_n0nbi")
 move_id = &"FireAtCardinalsAndDiagonals"
 repeatable = true
 next_move = NodePath("../FireAtCardinalsAndDiagonals")
-metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
 
 [node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseThree/FireAtCardinalsAndDiagonals2" unique_id=1779493507 instance=ExtResource("22_n4kqj")]
 projectile_count = 32

@@ -49,12 +49,12 @@ func stop() -> void:
 
 func _run_loop() -> void:
 	if !is_instance_valid(boss_phase_controller.current_phase):
-		push_error("BossMovesetController ran into an invalid phase!")
+		Log.err("Ran into an invalid phase!")
 		_acting = false
 		return
 	
 	if _phases.is_empty():
-		push_error("BossMovesetController has no phases to execute!")
+		Log.err("No phases to execute!")
 		_acting = false
 		return
 	
@@ -97,7 +97,7 @@ func _execute(move: BaseBossMove) -> void:
 		await get_tree().process_frame
 		return
 	
-	print("Executing %s" % move.move_id)
+	Log.prn("Executing %s" % move.move_id)
 	move.execute()
 	move_started.emit(move)
 	await get_tree().create_timer(_rng.randf_range(move.min_delay, move.max_delay) * global_delay_multiplier).timeout
