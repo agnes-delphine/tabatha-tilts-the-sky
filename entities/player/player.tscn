@@ -14,15 +14,19 @@
 [ext_resource type="Script" uid="uid://fk5wh71mvugw" path="res://entities/player/scripts/slide_component.gd" id="6_bectd"]
 [ext_resource type="Script" uid="uid://4c1vfxmatr5a" path="res://entities/player/scripts/dash_component.gd" id="6_j3ovn"]
 [ext_resource type="PackedScene" uid="uid://bvqwnm14p1ogf" path="res://entities/common/components/hitbox/hitbox.tscn" id="6_t1t22"]
+[ext_resource type="Script" uid="uid://bps1q65x3uquh" path="res://entities/player/scripts/parry_hitbox.gd" id="6_wq0jh"]
 [ext_resource type="Script" uid="uid://cxtox5wjb06pt" path="res://entities/player/scripts/player_dodge_component.gd" id="8_qpopc"]
 [ext_resource type="Script" uid="uid://bb447pxgwdyld" path="res://entities/common/components/death/death_component.gd" id="8_wq0jh"]
+[ext_resource type="Script" uid="uid://cnvbm0dfi6k4w" path="res://entities/player/scripts/death_box.gd" id="10_24ehl"]
 [ext_resource type="Script" uid="uid://dk28pf187i2k7" path="res://entities/common/scripts/health_component/health_component.gd" id="11_afbqv"]
+[ext_resource type="PackedScene" uid="uid://dvdiwvvd2ktnw" path="res://ui/menus/death_menu/death_menu.tscn" id="11_bwdx1"]
 [ext_resource type="Script" uid="uid://jgceaiyogkns" path="res://entities/common/scripts/stamina_component/stamina_component.gd" id="12_gx6sm"]
 [ext_resource type="Script" uid="uid://brlj2y6fhndkc" path="res://entities/player/scripts/attacker_component.gd" id="13_we0b7"]
 [ext_resource type="Script" uid="uid://coidtqdley7x2" path="res://entities/player/scripts/attacker_state_component.gd" id="15_eyb6c"]
 [ext_resource type="Theme" uid="uid://bwf5joplin0n8" path="res://ui/themes/loading_bar.tres" id="16_3wlsy"]
 [ext_resource type="Script" uid="uid://bxioduopna0mo" path="res://entities/player/scripts/attacker_charge_component.gd" id="16_wuv6x"]
 [ext_resource type="Script" uid="uid://7g528kcx1amd" path="res://ui/hud/scripts/stat_ui_controller.gd" id="16_yqrof"]
+[ext_resource type="Script" uid="uid://ceva01741llr6" path="res://entities/player/scripts/parry_component.gd" id="20_gt4e4"]
 [ext_resource type="FontFile" uid="uid://c17rw7ovb0awq" path="res://ui/assets/fonts/Cascadia_Mono/static/CascadiaMono-ExtraLight.ttf" id="21_ghoj8"]
 [ext_resource type="Script" uid="uid://dh7h1w6cotva0" path="res://ui/hud/scripts/attack_charge_bar.gd" id="21_wuv6x"]
 [ext_resource type="Script" uid="uid://cucw17ylmvrtx" path="res://ui/hud/boss_stats/boss_stats_ui_controller.gd" id="22_50fht"]
@@ -39,7 +43,7 @@ height = 4.5356445
 [sub_resource type="Resource" id="Resource_yj6s3"]
 script = ExtResource("5_qpopc")
 health_damage = 1
-poise_damage = 10
+poise_damage = 20
 damage_type = 0
 metadata/_custom_type_script = "uid://cdfq2i21dytg3"
 
@@ -126,6 +130,16 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5734253)
 shape = SubResource("BoxShape3D_g4v7s")
 
+[node name="ParryHitbox" type="Area3D" parent="Model" unique_id=2141905235]
+unique_name_in_owner = true
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.5486083, 4.195002)
+collision_mask = 12
+script = ExtResource("6_wq0jh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Model/ParryHitbox" unique_id=2012908052]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5734253)
+shape = SubResource("BoxShape3D_g4v7s")
+
 [node name="Components" type="Node" parent="." unique_id=1563754300]
 
 [node name="PlayerStateComponent" type="Node" parent="Components" unique_id=58606190]
@@ -141,6 +155,10 @@ unique_name_in_owner = true
 script = ExtResource("8_wq0jh")
 health = NodePath("..")
 
+[node name="ChangeSceneOnDeathComponent" type="Node" parent="Components/HealthComponent/DeathComponent" unique_id=1059031324]
+script = ExtResource("10_24ehl")
+scene = ExtResource("11_bwdx1")
+
 [node name="StaminaComponent" type="Node" parent="Components" unique_id=1175043731]
 unique_name_in_owner = true
 script = ExtResource("12_gx6sm")
@@ -149,7 +167,6 @@ increase_rate = 7.5
 [node name="CameraComponent" type="Node" parent="Components" unique_id=633656761]
 unique_name_in_owner = true
 script = ExtResource("3_8fjmc")
-rotation_speed = 50.0
 
 [node name="MovementComponent" type="Node" parent="Components" unique_id=101337582 node_paths=PackedStringArray("player", "camera", "model", "player_state", "speed_modifier", "attacker_state")]
 script = ExtResource("2_fkugw")
@@ -200,10 +217,19 @@ script = ExtResource("15_eyb6c")
 [node name="AttackerChargeComponent" type="Node" parent="Components/AttackerComponent" unique_id=603244063]
 unique_name_in_owner = true
 script = ExtResource("16_wuv6x")
+increase_rate = 2.0
 start_at_max = false
 
 [node name="ChargerTimer" type="Timer" parent="Components/AttackerComponent/AttackerChargeComponent" unique_id=597435259]
 unique_name_in_owner = true
+
+[node name="ParryComponent" type="Node" parent="Components" unique_id=43325809]
+script = ExtResource("20_gt4e4")
+
+[node name="ParryActiveTimer" type="Timer" parent="Components/ParryComponent" unique_id=50919752]
+unique_name_in_owner = true
+wait_time = 0.2
+one_shot = true
 
 [node name="CameraGroup" type="Node" parent="." unique_id=1406050078]
 

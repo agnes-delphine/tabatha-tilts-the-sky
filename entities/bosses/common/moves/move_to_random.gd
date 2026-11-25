@@ -15,4 +15,4 @@ func execute_move() -> void:
 	tween.tween_property(boss, "global_position", target_pos, 0.5)
 
 func is_valid() -> bool:
-	return boss.global_position.distance_to(ArenaManager.arena_center.global_position) <= 50.0
+	return boss.global_position.distance_to(ArenaManager.arena_center.global_position) <= 30.0

@@ -2,7 +2,7 @@ extends DeathComponent
 class_name BossDeathComponent
 
 @onready var boss : Node3D = $"../.."
-@onready var boss_moveset_controller: BossMovesetController = %BossMovesetController
+@onready var boss_moveset_controller: BossMovesetControllerComponent = %BossMovesetControllerComponent
 @onready var hurtbox: Hurtbox = %Hurtbox
 @onready var hitbox: Hitbox = %Hitbox
 

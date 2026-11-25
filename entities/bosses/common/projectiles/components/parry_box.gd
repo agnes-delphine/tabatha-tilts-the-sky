@@ -5,9 +5,6 @@ class_name ParryBox
 @onready var hitbox: Hitbox = %Hitbox
 @onready var model: CSGBox3D = %CSGBox3D
 
-## The minimum charge required to parry this projectile.
-@export_range(0.0, 100.0, 1.0) var minimum_charge_to_parry := 15.0
-
 ## The damage the projectile does if parried.
 @export var damage_if_parried : DamageInstance
 
@@ -21,33 +18,39 @@ class_name ParryBox
 @export var parried_material : StandardMaterial3D
 var default_material : StandardMaterial3D
 
+## How much charge do you get for parrying this projectile?
+@export var charge_on_parried := 10.0
+
 func _ready() -> void:
 	default_material = model.material
-	projectile.finished.connect(_on_projectile_finished)
+	projectile.activated.connect(_on_projectile_activated)
 
-func _on_projectile_finished(_projectile: BaseProjectile) -> void:
+func _on_projectile_activated() -> void:
 	model.material = default_material
 	
+	## change owner back to enemy
 	hitbox.set_collision_layer_value(1, false)
 	hitbox.set_collision_layer_value(3, true)
-	
 	hitbox.set_collision_mask_value(1, true)
 	hitbox.set_collision_mask_value(3, false)
 	
+	## reset damage
 	hitbox.damage_instance = hitbox.base_damage_instance
+	
+	## enable collision of parry box
+	set_deferred("monitoring", true)
+	set_deferred("monitorable", true)
 
 func _on_area_entered(area: Area3D) -> void:
-	if area is not Hitbox:
+	if area is not ParryHitbox:
 		return
 	
-	area = area as Hitbox
+	area = area as ParryHitbox
 	
-	if not is_instance_valid(area.attacker):
-		return
+	var attacker_charge : AttackerChargeComponent = PlayerManager.player.get_node_or_null("%AttackerChargeComponent")
+	if is_instance_valid(attacker_charge):
+		attacker_charge.increase(charge_on_parried)
 	
-	if area.attacker.charge_at_release < minimum_charge_to_parry:
-		return
-		
 	## reverse direction
 	var new_direction = projectile.global_position.direction_to(BossManager.current_boss.global_position)
 	projectile.direction = new_direction
@@ -62,7 +65,7 @@ func _on_area_entered(area: Area3D) -> void:
 	model.material = parried_material
 	projectile._face_direction()
 	
-	## change owner to player
+	## change owner of hitbox to player
 	hitbox.set_collision_layer_value(1, true)
 	hitbox.set_collision_layer_value(3, false)
 	
@@ -70,7 +73,7 @@ func _on_area_entered(area: Area3D) -> void:
 	hitbox.set_collision_mask_value(3, true)
 	
 	hitbox.damage_instance = damage_if_parried.duplicate()
-	hitbox.damage_instance.poise_damage += (area.attacker.charge_at_release * charge_damage_scale)
 	
+	## disable collision of parry box
 	set_deferred("monitoring", false)
 	set_deferred("monitorable", false)

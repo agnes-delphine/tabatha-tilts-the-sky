@@ -10,6 +10,7 @@ var direction: Vector3
 var speed: float
 var active: bool = false
 
+signal activated()
 signal finished(projectile: BaseProjectile)
 
 func _ready() -> void:
@@ -24,8 +25,8 @@ func activate(new_direction: Vector3, new_speed: float) -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
 	hitbox.set_deferred("monitoring", true)
 	hitbox.set_deferred("monitorable", true)
-	
 	lifetime_timer.start(lifetime)
+	activated.emit()
 
 func deactivate() -> void:
 	active = false

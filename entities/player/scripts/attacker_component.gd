@@ -21,27 +21,18 @@ func _ready() -> void:
 	attack_hitbox.set_collider_state(false)
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ready_blade"):
-		attacker_state.set_state(attacker_state.AttackerState.READY)
-		
-	elif event.is_action_released("ready_blade"):
-		if attacking:
+	if event.is_action_pressed("attack"):
+		if attacking or !attacker_charge.is_charged():
 			return
 		
-		attacker_state.set_state(attacker_state.AttackerState.IDLE)
 		RotationManager.rotate_towards_target(model, camera_focus, 0)
-		await attack()
+		attack()
 
 func attack() -> void:
+	attacker_charge.resource = 0
+	
 	attacking = true
 	player_attacked.emit()
-	reset_damage()
-	
-	charge_at_release = attacker_charge.resource
-	
-	if attacker_charge.is_power_attack():
-		attack_hitbox.damage_instance.poise_damage *= attacker_charge.poise_damage_multiplier
-	attacker_charge.resource = 0
 	
 	await get_tree().physics_frame
 	attack_hitbox.set_collider_state(true)
@@ -50,8 +41,3 @@ func attack() -> void:
 	attack_hitbox.set_collider_state(false)
 	
 	attacking = false
-	reset_damage()
-
-func reset_damage() -> void:
-	attack_hitbox.damage_instance.poise_damage = attack_hitbox.base_damage_instance.poise_damage
-	attack_hitbox.damage_instance.health_damage = attack_hitbox.base_damage_instance.health_damage

@@ -4,9 +4,12 @@ class_name BossActionProjectileBurstComponent
 @onready var targets_player: BossActionTargetsPlayerComponent = $BossActionTargetsPlayerComponent
 @onready var projectile: BossActionProjectileComponent = $BossActionProjectileComponent
 
+## Self Explanatory
 @export var pellet_count: int = 5
+## Set Spread
 @export var spread_degrees: float = 40.0
-@export var jitter_degrees: float = 0.0
+## Random Spread
+@export var randomized_spread_degrees: float = 0.0
 
 func execute() -> void:
 	var player_pos := targets_player.get_player_pos()
@@ -26,7 +29,7 @@ func execute() -> void:
 	for i in pellet_count:
 		var t := 0.0 if pellet_count == 1 else float(i) / (pellet_count - 1) - 0.5
 
-		var angle := t * spread + deg_to_rad(randf_range(-jitter_degrees, jitter_degrees))
+		var angle := t * spread + deg_to_rad(randf_range(-randomized_spread_degrees, randomized_spread_degrees))
 
 		var direction := aim_direction.rotated(Vector3.UP, angle)
 		if projectile.random_projectile_type == projectile.RandomProjectileType.SEPARATE:

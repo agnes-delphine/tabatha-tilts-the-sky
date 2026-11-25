@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dvdiwvvd2ktnw"]
+
+[ext_resource type="Theme" uid="uid://c7jdgppvo803a" path="res://ui/themes/label.tres" id="1_fd5u3"]
+
+[node name="DeathMenu" type="Control" unique_id=1331513626]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1943953493]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="ColorRect" unique_id=32514909]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ColorRect/CenterContainer" unique_id=610976057]
+layout_mode = 2
+theme = ExtResource("1_fd5u3")
+theme_override_font_sizes/font_size = 128
+text = "You DIED!"
+horizontal_alignment = 1
+vertical_alignment = 1

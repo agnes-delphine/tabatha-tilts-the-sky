@@ -11,9 +11,6 @@ class_name AttackerChargeComponent
 ## How much to increase the charge by each tick.
 @export var increase_rate := 10.0
 
-## How much the poise damage is multiplied by on a charged hit.
-@export var poise_damage_multiplier := 4
-
 var decaying := false
 
 func _ready() -> void:
@@ -21,8 +18,7 @@ func _ready() -> void:
 	resource_changed.connect(_on_resource_changed)
 
 func _on_charger_timer_timeout() -> void:
-	if attacker_state.is_state(attacker_state.AttackerState.READY):
-		increase(increase_rate)
+	increase(increase_rate)
 
 func _on_resource_changed(update: ResourceUpdate) -> void:
 	## sfx
@@ -30,5 +26,5 @@ func _on_resource_changed(update: ResourceUpdate) -> void:
 		#do_sfx()
 	TweenManager.tween_bar(attack_charge_bar, update.current_value)
 
-func is_power_attack() -> bool:
+func is_charged() -> bool:
 	return resource >= max_resource

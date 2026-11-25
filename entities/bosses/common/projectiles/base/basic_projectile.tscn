@@ -27,7 +27,7 @@ one_shot = true
 
 [node name="Hitbox" type="Area3D" parent="." unique_id=700711057]
 unique_name_in_owner = true
-collision_layer = 4
+collision_layer = 12
 script = ExtResource("2_yi8de")
 base_damage_instance = SubResource("Resource_g4v7s")
 metadata/_custom_type_script = "uid://gfsbbqbsg80"

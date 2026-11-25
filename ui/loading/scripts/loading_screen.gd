@@ -5,9 +5,10 @@ class_name LoadingScreen
 @onready var progress_bar: ProgressBar = %ProgressBar
 
 @export var minimum_loading_time := 1.0
-var elapsed := 0.0
-
+@export var show_loading_bar := true
 @export var next_scene_path: String = "res://scenes/main_scene.tscn"
+
+var elapsed := 0.0
 
 var progress : Array[float] = []
 signal scene_loaded
@@ -15,6 +16,7 @@ signal scene_loaded
 var changing_scene := false
 
 func _ready() -> void:
+	progress_bar.visible = show_loading_bar
 	var err = ResourceLoader.load_threaded_request(next_scene_path)
 	if err !=  OK:
 		push_error("Failed to request scene: %s" % next_scene_path)
