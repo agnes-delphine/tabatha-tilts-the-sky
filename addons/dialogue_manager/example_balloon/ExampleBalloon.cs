@@ -6,7 +6,7 @@ namespace DialogueManagerRuntime
   public partial class ExampleBalloon : CanvasLayer
   {
     [Export] public Resource DialogueResource;
-    [Export] public string StartFromLabel = "";
+    [Export] public string StartFromTitle = "";
     [Export] public bool AutoStart = false;
     [Export] public string NextAction = "ui_accept";
     [Export] public string SkipAction = "ui_cancel";
@@ -14,8 +14,8 @@ namespace DialogueManagerRuntime
 
     Control balloon;
     RichTextLabel characterLabel;
-    DialogueLabel dialogueLabel;
-    DialogueResponsesMenu responsesMenu;
+    RichTextLabel dialogueLabel;
+    VBoxContainer responsesMenu;
     Polygon2D progress;
 
     Array<Variant> temporaryGameStates = new Array<Variant>();
@@ -54,22 +54,22 @@ namespace DialogueManagerRuntime
     {
       balloon = GetNode<Control>("%Balloon");
       characterLabel = GetNode<RichTextLabel>("%CharacterLabel");
-      dialogueLabel = GetNode<DialogueLabel>("%DialogueLabel");
-      responsesMenu = GetNode<DialogueResponsesMenu>("%ResponsesMenu");
+      dialogueLabel = GetNode<RichTextLabel>("%DialogueLabel");
+      responsesMenu = GetNode<VBoxContainer>("%ResponsesMenu");
       progress = GetNode<Polygon2D>("%Progress");
 
       balloon.Hide();
 
       balloon.GuiInput += (@event) =>
       {
-        if (dialogueLabel.IsTyping)
+        if ((bool)dialogueLabel.Get("is_typing"))
         {
           bool mouseWasClicked = @event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed();
           bool skipButtonWasPressed = @event.IsActionPressed(SkipAction);
           if (mouseWasClicked || skipButtonWasPressed)
           {
             GetViewport().SetInputAsHandled();
-            dialogueLabel.SkipTyping();
+            dialogueLabel.Call("skip_typing");
             return;
           }
         }
@@ -89,14 +89,14 @@ namespace DialogueManagerRuntime
         }
       };
 
-      if (string.IsNullOrEmpty(responsesMenu.NextAction))
+      if (string.IsNullOrEmpty((string)responsesMenu.Get("next_action")))
       {
-        responsesMenu.NextAction = NextAction;
+        responsesMenu.Set("next_action", NextAction);
       }
-      responsesMenu.ResponseSelected += (response) =>
+      responsesMenu.Connect("response_selected", Callable.From((DialogueResponse response) =>
       {
         Next(response.NextId);
-      };
+      }));
 
 
       // Hide the balloon when a mutation is running
@@ -120,17 +120,6 @@ namespace DialogueManagerRuntime
         }
         Start();
       }
-
-      // EXAMPLE MESSAGE
-      var warning = new Button
-      {
-        Text = DialogueManager.Translate("This is an example balloon. Create your own balloon in 'Project > Tools > Dialogue > Create Balloon...'"),
-        Disabled = true
-      };
-      warning.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.TopWide);
-      balloon.AddChild(warning);
-      balloon.MoveChild(warning, 0);
-      // END EXAMPLE MESSAGE
     }
 
 
@@ -156,7 +145,7 @@ namespace DialogueManagerRuntime
         DialogueLine = await DialogueManager.GetNextDialogueLine(DialogueResource, DialogueLine.Id, temporaryGameStates);
         if (visibleRatio < 1.0f)
         {
-          dialogueLabel.SkipTyping();
+          dialogueLabel.Call("skip_typing");
         }
       }
     }
@@ -168,12 +157,12 @@ namespace DialogueManagerRuntime
 
       if (IsInstanceValid(dialogueLine))
       {
-        progress.Visible = !dialogueLabel.IsTyping && dialogueLine.Responses.Count == 0 && !dialogueLine.HasTag("voice");
+        progress.Visible = !(bool)dialogueLabel.Get("is_typing") && dialogueLine.Responses.Count == 0 && !dialogueLine.HasTag("voice");
       }
     }
 
 
-    public async void Start(Resource dialogueResource = null, string label = "", Array<Variant> extraGameStates = null)
+    public async void Start(Resource dialogueResource = null, string title = "", Array<Variant> extraGameStates = null)
     {
       temporaryGameStates = new Array<Variant> { this } + (extraGameStates ?? new Array<Variant>());
       isWaitingForInput = false;
@@ -182,12 +171,12 @@ namespace DialogueManagerRuntime
       {
         DialogueResource = dialogueResource;
       }
-      if (label != "")
+      if (title != "")
       {
-        StartFromLabel = label;
+        StartFromTitle = title;
       }
 
-      DialogueLine = await DialogueManager.GetNextDialogueLine(DialogueResource, StartFromLabel, temporaryGameStates);
+      DialogueLine = await DialogueManager.GetNextDialogueLine(DialogueResource, StartFromTitle, temporaryGameStates);
       Show();
     }
 
@@ -215,11 +204,11 @@ namespace DialogueManagerRuntime
 
       // Set up the dialogue
       dialogueLabel.Hide();
-      dialogueLabel.DialogueLine = dialogueLine;
+      dialogueLabel.Set("dialogue_line", dialogueLine);
 
       // Set up the responses
       responsesMenu.Hide();
-      responsesMenu.Responses = dialogueLine.Responses;
+      responsesMenu.Set("responses", dialogueLine.Responses);
 
       // Type out the text
       balloon.Show();
@@ -227,8 +216,8 @@ namespace DialogueManagerRuntime
       dialogueLabel.Show();
       if (!string.IsNullOrEmpty(dialogueLine.Text))
       {
-        dialogueLabel.TypeOut();
-        await ToSignal(dialogueLabel, DialogueLabel.SignalName.FinishedTyping);
+        dialogueLabel.Call("type_out");
+        await ToSignal(dialogueLabel, "finished_typing");
       }
 
       // Wait for input
@@ -244,7 +233,7 @@ namespace DialogueManagerRuntime
         {
           time = dialogueLine.Text.Length * 0.02f;
         }
-        await ToSignal(GetTree().CreateTimer(time), Timer.SignalName.Timeout);
+        await ToSignal(GetTree().CreateTimer(time), "timeout");
         Next(dialogueLine.NextId);
       }
       else

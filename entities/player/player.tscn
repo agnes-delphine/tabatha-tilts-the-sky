@@ -31,6 +31,7 @@
 [ext_resource type="Script" uid="uid://dh7h1w6cotva0" path="res://ui/hud/scripts/attack_charge_bar.gd" id="21_wuv6x"]
 [ext_resource type="Script" uid="uid://cucw17ylmvrtx" path="res://ui/hud/boss_stats/boss_stats_ui_controller.gd" id="22_50fht"]
 [ext_resource type="Theme" uid="uid://bf8b1dj0w31ia" path="res://ui/themes/boss_hp.tres" id="22_t1t22"]
+[ext_resource type="Script" uid="uid://bka3tw43gjfft" path="res://entities/player/scripts/menu_input_component.gd" id="23_vewsg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 radius = 0.23388672
@@ -232,6 +233,10 @@ one_shot = true
 unique_name_in_owner = true
 one_shot = true
 
+[node name="MenuInputComponent" type="Node" parent="Components" unique_id=1081182022]
+process_mode = 3
+script = ExtResource("23_vewsg")
+
 [node name="CameraGroup" type="Node" parent="." unique_id=1406050078]
 
 [node name="CameraPivot" type="Node3D" parent="CameraGroup" unique_id=462089270]
@@ -240,8 +245,7 @@ unique_name_in_owner = true
 [node name="Camera3D" type="Camera3D" parent="CameraGroup/CameraPivot" unique_id=1398001316]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1.7881393e-07, 0.99999994, 0, -0.99999994, 1.7881393e-07, 0, 8, 5.364418e-07)
-top_level = true
+transform = Transform3D(1, 0, 0, 0, 1.7881395e-07, 1, 0, -1, 1.7881395e-07, 0, 8, 5.364418e-07)
 fov = 100.0
 
 [node name="PhantomCameraHost" type="Node" parent="CameraGroup/CameraPivot/Camera3D" unique_id=197406305]
@@ -264,8 +268,6 @@ auto_follow_distance = true
 vertical_rotation_offset = 1.5707963267948966
 spring_length = 3.0
 collision_mask = 2
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="PlayerUI" type="CanvasLayer" parent="." unique_id=1534802610]
@@ -273,14 +275,13 @@ unique_name_in_owner = true
 
 [node name="PlayerStatsPanel" type="Panel" parent="PlayerUI" unique_id=157490109]
 custom_minimum_size = Vector2(400, 70)
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -200.0
-offset_right = 200.0
-offset_bottom = 50.0
+anchors_preset = -1
+anchor_left = 0.39583334
+anchor_right = 0.6041667
+anchor_bottom = 0.06481481
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gx6sm")
+metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="PlayerUI/PlayerStatsPanel" unique_id=124682245]
 layout_mode = 1

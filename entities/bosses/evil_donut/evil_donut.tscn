@@ -20,8 +20,10 @@
 [ext_resource type="Script" uid="uid://cxsi7xpkpx2k3" path="res://entities/bosses/common/components/boss_phase_controller_component.gd" id="16_r8f44"]
 [ext_resource type="Script" uid="uid://b5ap6k8tpkvp7" path="res://entities/bosses/common/moves/move_components/targets_player.gd" id="17_4lxdn"]
 [ext_resource type="Script" uid="uid://cg0y8165dprn1" path="res://entities/bosses/common/components/phase_change_on_health_damage_component.gd" id="17_livtq"]
+[ext_resource type="Script" uid="uid://bykejabub78o5" path="res://entities/bosses/common/components/dialogue_on_phase_change_component.gd" id="17_tyi15"]
 [ext_resource type="Script" uid="uid://ddkcslor8fga0" path="res://entities/bosses/common/abstract/base_boss_phase.gd" id="17_ykpv7"]
 [ext_resource type="Script" uid="uid://qp6w033rhofu" path="res://entities/bosses/common/moves/move_to_center.gd" id="18_4x32n"]
+[ext_resource type="Resource" uid="uid://dbeihugmo2hcr" path="res://entities/bosses/common/dialogue/phase_testing_dialogue.dialogue" id="18_31sk6"]
 [ext_resource type="Script" uid="uid://4p6rarju15hm" path="res://entities/bosses/common/moves/move_to_random.gd" id="19_cy5xk"]
 [ext_resource type="Script" uid="uid://dfgqq3s7hs5cn" path="res://entities/bosses/common/abstract/moves/base_boss_move.gd" id="20_n0nbi"]
 [ext_resource type="PackedScene" uid="uid://dhvxxnykj6dyn" path="res://entities/bosses/common/moves/move_components/projectile/projectile_burst/projectile_burst.tscn" id="21_026qv"]
@@ -107,6 +109,12 @@ script = ExtResource("15_ykpv7")
 [node name="BossPhaseControllerComponent" type="Node" parent="Components" unique_id=1089774133]
 unique_name_in_owner = true
 script = ExtResource("16_r8f44")
+
+[node name="DialogueOnPhaseChangeComponent" type="Node" parent="Components/BossPhaseControllerComponent" unique_id=1508439600 node_paths=PackedStringArray("phase_to_dialogue")]
+script = ExtResource("17_tyi15")
+phase_to_dialogue = {
+NodePath("../../../BossMovesetControllerComponent/PhaseTwo"): ExtResource("18_31sk6")
+}
 
 [node name="PhaseChangeOnHealthDamageComponent" type="Node" parent="Components/BossPhaseControllerComponent" unique_id=580729887 node_paths=PackedStringArray("health_to_phase")]
 script = ExtResource("17_livtq")

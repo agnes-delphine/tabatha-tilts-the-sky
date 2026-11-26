@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://b2gs46dyaoqj5"]
+
+[ext_resource type="Script" uid="uid://mojgm2k474ol" path="res://ui/menus/pause_menu/pause_menu.gd" id="1_57ky2"]
+[ext_resource type="Theme" uid="uid://c7jdgppvo803a" path="res://ui/themes/label.tres" id="2_2gx4h"]
+
+[node name="PauseMenu" type="Control" unique_id=204040761]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_57ky2")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=49458069]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=134266959]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1779578666]
+layout_mode = 2
+theme = ExtResource("2_2gx4h")
+theme_override_font_sizes/font_size = 128
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=283902844]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_2gx4h")
+text = "Resume"
+
+[node name="OptionsButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1105025637]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_2gx4h")
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1032668782]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_2gx4h")
+text = "Quit"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

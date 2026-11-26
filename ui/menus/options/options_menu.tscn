@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://bgducnbjy2kcx"]
+
+[ext_resource type="Theme" uid="uid://c7jdgppvo803a" path="res://ui/themes/label.tres" id="1_l6qvt"]
+[ext_resource type="Script" uid="uid://dcykg823uru4y" path="res://ui/menus/options/options_menu.gd" id="1_w7uuv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57qmd"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="OptionsMenu" type="Control" unique_id=323506291]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w7uuv")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1349099297]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer" unique_id=1902269667]
+custom_minimum_size = Vector2(1200, 800)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_57qmd")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel" unique_id=1409375276]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer" unique_id=1157157685]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 2
+
+[node name="MasterVolumeSlider" type="HSlider" parent="CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1877115771]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 6
+value = 100.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/MasterVolumeSlider" unique_id=563305884]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 1.0
+offset_top = -6.0
+offset_right = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+mouse_filter = 2
+theme = ExtResource("1_l6qvt")
+theme_override_font_sizes/normal_font_size = 16
+text = "Master"
+horizontal_alignment = 1
+
+[node name="SFXVolumeSlider" type="HSlider" parent="CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=530298625]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 6
+value = 100.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/SFXVolumeSlider" unique_id=883958987]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 1.0
+offset_top = -6.0
+offset_right = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+mouse_filter = 2
+theme = ExtResource("1_l6qvt")
+theme_override_font_sizes/normal_font_size = 16
+text = "SFX"
+horizontal_alignment = 1
+
+[node name="MusicVolumeSlider" type="HSlider" parent="CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=690299463]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 6
+value = 100.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/MusicVolumeSlider" unique_id=49594420]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 1.0
+offset_top = -6.0
+offset_right = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+mouse_filter = 2
+theme = ExtResource("1_l6qvt")
+theme_override_font_sizes/normal_font_size = 16
+text = "Music"
+horizontal_alignment = 1
+
+[connection signal="value_changed" from="CenterContainer/Panel/MarginContainer/VBoxContainer/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="CenterContainer/Panel/MarginContainer/VBoxContainer/SFXVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]
+[connection signal="value_changed" from="CenterContainer/Panel/MarginContainer/VBoxContainer/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
