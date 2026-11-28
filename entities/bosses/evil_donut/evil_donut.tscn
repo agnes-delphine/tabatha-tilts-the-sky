@@ -29,6 +29,9 @@
 [ext_resource type="Script" uid="uid://dfgqq3s7hs5cn" path="res://entities/bosses/common/abstract/moves/base_boss_move.gd" id="20_n0nbi"]
 [ext_resource type="PackedScene" uid="uid://dhvxxnykj6dyn" path="res://entities/bosses/common/moves/move_components/projectile/projectile_burst/projectile_burst.tscn" id="21_026qv"]
 [ext_resource type="PackedScene" uid="uid://63blrdikirxp" path="res://entities/bosses/common/moves/move_components/projectile/projectile_radial/projectile_radial.tscn" id="22_n4kqj"]
+[ext_resource type="Script" uid="uid://bdoaw6km1fktk" path="res://entities/bosses/common/moves/move_components/aoe/base_aoe.gd" id="30_6bmxe"]
+[ext_resource type="Script" uid="uid://dj1r31g1o0rum" path="res://entities/bosses/common/moves/move_components/aoe/spawn_at_feet/boss_action_spawn_aoe_at_player_feet_component.gd" id="30_pbdpo"]
+[ext_resource type="PackedScene" uid="uid://cboduiihe7gku" path="res://entities/bosses/common/abstract/aoe/base/base_aoe_damage_entity.tscn" id="31_pbdpo"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 radius = 1.9521484
@@ -193,6 +196,24 @@ inverse = true
 [node name="BossActionProjectileComponent" parent="BossMovesetControllerComponent/PhaseOne/FireFromDiagonals/ProjectileRadial" index="0" unique_id=936493392]
 projectile_type = 3
 
+[node name="SpawnAoeInFront" type="Node" parent="BossMovesetControllerComponent/PhaseOne" unique_id=406711327]
+script = ExtResource("20_n0nbi")
+metadata/_custom_type_script = "uid://dfgqq3s7hs5cn"
+
+[node name="BossActionSpawnAOEAtPlayerFeetComponent" type="Node" parent="BossMovesetControllerComponent/PhaseOne/SpawnAoeInFront" unique_id=664166143]
+script = ExtResource("30_pbdpo")
+repeat_count = 3
+repeat_delay = 0.4
+
+[node name="BossActionAOEDamageComponent" type="Node" parent="BossMovesetControllerComponent/PhaseOne/SpawnAoeInFront/BossActionSpawnAOEAtPlayerFeetComponent" unique_id=1919408046]
+script = ExtResource("30_6bmxe")
+aoe_entity = ExtResource("31_pbdpo")
+metadata/_custom_type_script = "uid://bdoaw6km1fktk"
+
+[node name="BossActionTargetsPlayerComponent" type="Node" parent="BossMovesetControllerComponent/PhaseOne/SpawnAoeInFront/BossActionSpawnAOEAtPlayerFeetComponent" unique_id=1194292892]
+script = ExtResource("17_4lxdn")
+metadata/_custom_type_script = "uid://b5ap6k8tpkvp7"
+
 [node name="PhaseTwo" type="Node" parent="BossMovesetControllerComponent" unique_id=1427853912]
 script = ExtResource("17_ykpv7")
 phase_id = &"PhaseTwo"
@@ -270,7 +291,7 @@ repeatable = true
 [node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseTwo/FireFromCardinalsAndDiagonals" unique_id=1551575471 instance=ExtResource("22_n4kqj")]
 projectile_count = 16
 fire_delay = 0.05
-spawn_distance = 15.0
+spawn_distance = 45.0
 inverse = true
 
 [node name="PhaseThree" type="Node" parent="BossMovesetControllerComponent" unique_id=1182340220]
@@ -327,8 +348,9 @@ repeatable = true
 
 [node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseThree/FireFromCardinalsAndDiagonals" unique_id=1188602414 instance=ExtResource("22_n4kqj")]
 projectile_count = 32
+start_angle_degrees = 45.0
 fire_delay = 0.05
-spawn_distance = 16.0
+spawn_distance = 45.0
 inverse = true
 
 [node name="BossActionProjectileComponent" parent="BossMovesetControllerComponent/PhaseThree/FireFromCardinalsAndDiagonals/ProjectileRadial" index="0" unique_id=936493392]

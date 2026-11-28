@@ -67,6 +67,7 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme = ExtResource("1_0gjxp")
 theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
 text = "SAMPLE DIALOGUE"
 script = ExtResource("2_hb2hh")
 skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")

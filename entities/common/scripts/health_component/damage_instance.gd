@@ -19,7 +19,7 @@ enum AvoidanceType {
 @export var avoidance_type : AvoidanceType = AvoidanceType.NONE
 
 func _init(
-	init_health_damage: int = 1,
+	init_health_damage: int = 10,
 	init_poise_damage: int = 0,
 	init_damage_type: DamageType = DamageType.ENEMY,
 	init_avoidance_type: AvoidanceType = AvoidanceType.NONE

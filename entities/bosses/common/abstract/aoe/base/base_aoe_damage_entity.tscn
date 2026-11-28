@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://cboduiihe7gku"]
+
+[ext_resource type="Script" uid="uid://diy65xkcygr8s" path="res://entities/bosses/common/abstract/aoe/base/base_aoe_damage_entity.gd" id="1_28ugc"]
+[ext_resource type="Script" uid="uid://gfsbbqbsg80" path="res://entities/common/components/hitbox/hitbox.gd" id="2_sbxkw"]
+[ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="3_s2tgq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
+transparency = 1
+albedo_color = Color(0.5058824, 0, 0, 0.27450982)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28ugc"]
+transparency = 1
+albedo_color = Color(0.5058824, 0, 0, 0.8862745)
+
+[sub_resource type="Resource" id="Resource_g4v7s"]
+script = ExtResource("3_s2tgq")
+health_damage = 1
+metadata/_custom_type_script = "uid://cdfq2i21dytg3"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+
+[node name="BaseAOEDamageEntity" type="Node3D" unique_id=1476718806]
+transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0)
+script = ExtResource("1_28ugc")
+
+[node name="LifetimeTimer" type="Timer" parent="." unique_id=1064582124]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="DelayTimer" type="Timer" parent="." unique_id=1129321486]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="Inactive" type="CSGBox3D" parent="." unique_id=168032892]
+unique_name_in_owner = true
+material = SubResource("StandardMaterial3D_g4v7s")
+
+[node name="Active" type="CSGBox3D" parent="." unique_id=1186099608]
+unique_name_in_owner = true
+visible = false
+material = SubResource("StandardMaterial3D_28ugc")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=171695427]
+unique_name_in_owner = true
+collision_layer = 4
+script = ExtResource("2_sbxkw")
+base_damage_instance = SubResource("Resource_g4v7s")
+metadata/_custom_type_script = "uid://gfsbbqbsg80"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1739939096]
+shape = SubResource("BoxShape3D_g4v7s")

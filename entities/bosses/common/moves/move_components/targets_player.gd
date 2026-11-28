@@ -9,6 +9,12 @@ func _ready() -> void:
 func _on_player_registered(_player: Player) -> void:
 	player = _player
 
+func get_player() -> Player:
+	if !is_instance_valid(player):
+		player = PlayerManager.player
+	
+	return player
+
 func get_player_pos() -> Vector3:
 	if !is_instance_valid(player):
 		player = PlayerManager.player

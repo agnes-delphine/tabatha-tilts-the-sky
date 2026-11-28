@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d00bqkqetrmda"]
 
-[ext_resource type="Script" uid="uid://b3tfqt7s25q1r" path="res://entities/bosses/common/abstract/projectiles/base/basic_projectile.gd" id="1_2ogbd"]
+[ext_resource type="Script" uid="uid://b3tfqt7s25q1r" path="res://entities/bosses/common/abstract/projectiles/components/basic_projectile.gd" id="1_2ogbd"]
 [ext_resource type="Script" uid="uid://gfsbbqbsg80" path="res://entities/common/components/hitbox/hitbox.gd" id="2_yi8de"]
 [ext_resource type="Script" uid="uid://cdfq2i21dytg3" path="res://entities/common/scripts/health_component/damage_instance.gd" id="3_v7146"]
 
