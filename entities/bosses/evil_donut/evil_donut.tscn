@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://qp6w033rhofu" path="res://entities/bosses/common/moves/move_to_center.gd" id="18_4x32n"]
 [ext_resource type="Resource" uid="uid://dbeihugmo2hcr" path="res://entities/bosses/common/dialogue/phase_testing_dialogue.dialogue" id="18_31sk6"]
 [ext_resource type="Script" uid="uid://4p6rarju15hm" path="res://entities/bosses/common/moves/move_to_random.gd" id="19_cy5xk"]
+[ext_resource type="Resource" uid="uid://bxhyrs8j1tg6g" path="res://entities/bosses/common/dialogue/phase_testing_dialogue_2.dialogue" id="19_e8evs"]
 [ext_resource type="Script" uid="uid://dfgqq3s7hs5cn" path="res://entities/bosses/common/abstract/moves/base_boss_move.gd" id="20_n0nbi"]
 [ext_resource type="PackedScene" uid="uid://dhvxxnykj6dyn" path="res://entities/bosses/common/moves/move_components/projectile/projectile_burst/projectile_burst.tscn" id="21_026qv"]
 [ext_resource type="PackedScene" uid="uid://63blrdikirxp" path="res://entities/bosses/common/moves/move_components/projectile/projectile_radial/projectile_radial.tscn" id="22_n4kqj"]
@@ -113,7 +114,8 @@ script = ExtResource("16_r8f44")
 [node name="DialogueOnPhaseChangeComponent" type="Node" parent="Components/BossPhaseControllerComponent" unique_id=1508439600 node_paths=PackedStringArray("phase_to_dialogue")]
 script = ExtResource("17_tyi15")
 phase_to_dialogue = {
-NodePath("../../../BossMovesetControllerComponent/PhaseTwo"): ExtResource("18_31sk6")
+NodePath("../../../BossMovesetControllerComponent/PhaseTwo"): ExtResource("18_31sk6"),
+NodePath("../../../BossMovesetControllerComponent/PhaseThree"): ExtResource("19_e8evs")
 }
 
 [node name="PhaseChangeOnHealthDamageComponent" type="Node" parent="Components/BossPhaseControllerComponent" unique_id=580729887 node_paths=PackedStringArray("health_to_phase")]
@@ -163,6 +165,7 @@ repeatable = true
 
 [node name="ProjectileBurst" parent="BossMovesetControllerComponent/PhaseOne/FireAtPlayer" unique_id=564006782 instance=ExtResource("21_026qv")]
 pellet_count = 3
+randomized_spread_degrees = 25.0
 
 [node name="BossActionProjectileComponent" parent="BossMovesetControllerComponent/PhaseOne/FireAtPlayer/ProjectileBurst" index="0" unique_id=70900920]
 projectile_type = 3
@@ -174,9 +177,20 @@ move_id = &"FireAtDiagonals"
 
 [node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseOne/FireAtDiagonals" unique_id=1544666761 instance=ExtResource("22_n4kqj")]
 start_angle_degrees = 45.0
-fire_delay = 0.02
 
 [node name="BossActionProjectileComponent" parent="BossMovesetControllerComponent/PhaseOne/FireAtDiagonals/ProjectileRadial" index="0" unique_id=936493392]
+projectile_type = 3
+
+[node name="FireFromDiagonals" type="Node" parent="BossMovesetControllerComponent/PhaseOne" unique_id=1681416014]
+script = ExtResource("20_n0nbi")
+move_id = &"FireFromDiagonals"
+
+[node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseOne/FireFromDiagonals" unique_id=818237667 instance=ExtResource("22_n4kqj")]
+start_angle_degrees = 45.0
+spawn_distance = 15.0
+inverse = true
+
+[node name="BossActionProjectileComponent" parent="BossMovesetControllerComponent/PhaseOne/FireFromDiagonals/ProjectileRadial" index="0" unique_id=936493392]
 projectile_type = 3
 
 [node name="PhaseTwo" type="Node" parent="BossMovesetControllerComponent" unique_id=1427853912]
@@ -248,6 +262,17 @@ fire_delay = 0.05
 [node name="BossActionProjectileComponent" parent="BossMovesetControllerComponent/PhaseTwo/FireAtCardinalsAndDiagonals/ProjectileRadial" index="0" unique_id=936493392]
 random_projectile_type = 1
 
+[node name="FireFromCardinalsAndDiagonals" type="Node" parent="BossMovesetControllerComponent/PhaseTwo" unique_id=1902292479]
+script = ExtResource("20_n0nbi")
+move_id = &"FireFromCardinalsAndDiagonals"
+repeatable = true
+
+[node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseTwo/FireFromCardinalsAndDiagonals" unique_id=1551575471 instance=ExtResource("22_n4kqj")]
+projectile_count = 16
+fire_delay = 0.05
+spawn_distance = 15.0
+inverse = true
+
 [node name="PhaseThree" type="Node" parent="BossMovesetControllerComponent" unique_id=1182340220]
 script = ExtResource("17_ykpv7")
 phase_id = &"PhaseThree"
@@ -279,10 +304,14 @@ randomized_spread_degrees = 60.0
 [node name="BossActionProjectileComponent" parent="BossMovesetControllerComponent/PhaseThree/FireAtPlayer/ProjectileBurst" index="0" unique_id=70900920]
 projectile_type = 3
 
-[node name="FireAtCardinalsAndDiagonals" type="Node" parent="BossMovesetControllerComponent/PhaseThree" unique_id=43593898]
+[node name="FireAtCardinalsAndDiagonals" type="Node" parent="BossMovesetControllerComponent/PhaseThree" unique_id=43593898 node_paths=PackedStringArray("next_move")]
 script = ExtResource("20_n0nbi")
 move_id = &"FireAtCardinalsAndDiagonals"
+move_weight = 1.2
+min_delay = 0.5
+max_delay = 1.6
 repeatable = true
+next_move = NodePath("../FireFromCardinalsAndDiagonals")
 
 [node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseThree/FireAtCardinalsAndDiagonals" unique_id=1272184180 instance=ExtResource("22_n4kqj")]
 projectile_count = 32
@@ -291,17 +320,18 @@ fire_delay = 0.05
 [node name="BossActionProjectileComponent" parent="BossMovesetControllerComponent/PhaseThree/FireAtCardinalsAndDiagonals/ProjectileRadial" index="0" unique_id=936493392]
 random_projectile_type = 1
 
-[node name="FireAtCardinalsAndDiagonals2" type="Node" parent="BossMovesetControllerComponent/PhaseThree" unique_id=363028382 node_paths=PackedStringArray("next_move")]
+[node name="FireFromCardinalsAndDiagonals" type="Node" parent="BossMovesetControllerComponent/PhaseThree" unique_id=437311820]
 script = ExtResource("20_n0nbi")
-move_id = &"FireAtCardinalsAndDiagonals"
+move_id = &"FireFromCardinalsAndDiagonals"
 repeatable = true
-next_move = NodePath("../FireAtCardinalsAndDiagonals")
 
-[node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseThree/FireAtCardinalsAndDiagonals2" unique_id=1779493507 instance=ExtResource("22_n4kqj")]
+[node name="ProjectileRadial" parent="BossMovesetControllerComponent/PhaseThree/FireFromCardinalsAndDiagonals" unique_id=1188602414 instance=ExtResource("22_n4kqj")]
 projectile_count = 32
 fire_delay = 0.05
+spawn_distance = 16.0
+inverse = true
 
-[node name="BossActionProjectileComponent" parent="BossMovesetControllerComponent/PhaseThree/FireAtCardinalsAndDiagonals2/ProjectileRadial" index="0" unique_id=936493392]
+[node name="BossActionProjectileComponent" parent="BossMovesetControllerComponent/PhaseThree/FireFromCardinalsAndDiagonals/ProjectileRadial" index="0" unique_id=936493392]
 random_projectile_type = 1
 
 [node name="DoomNut" type="CSGTorus3D" parent="." unique_id=1895680408]
@@ -314,10 +344,12 @@ material = SubResource("StandardMaterial3D_o5h7e")
 
 [editable path="BossMovesetControllerComponent/PhaseOne/FireAtPlayer/ProjectileBurst"]
 [editable path="BossMovesetControllerComponent/PhaseOne/FireAtDiagonals/ProjectileRadial"]
+[editable path="BossMovesetControllerComponent/PhaseOne/FireFromDiagonals/ProjectileRadial"]
 [editable path="BossMovesetControllerComponent/PhaseTwo/FireAtPlayer/ProjectileBurst"]
 [editable path="BossMovesetControllerComponent/PhaseTwo/FireAtCardinals/ProjectileRadial"]
 [editable path="BossMovesetControllerComponent/PhaseTwo/FireAtDiagonals/ProjectileRadial"]
 [editable path="BossMovesetControllerComponent/PhaseTwo/FireAtCardinalsAndDiagonals/ProjectileRadial"]
+[editable path="BossMovesetControllerComponent/PhaseTwo/FireFromCardinalsAndDiagonals/ProjectileRadial"]
 [editable path="BossMovesetControllerComponent/PhaseThree/FireAtPlayer/ProjectileBurst"]
 [editable path="BossMovesetControllerComponent/PhaseThree/FireAtCardinalsAndDiagonals/ProjectileRadial"]
-[editable path="BossMovesetControllerComponent/PhaseThree/FireAtCardinalsAndDiagonals2/ProjectileRadial"]
+[editable path="BossMovesetControllerComponent/PhaseThree/FireFromCardinalsAndDiagonals/ProjectileRadial"]

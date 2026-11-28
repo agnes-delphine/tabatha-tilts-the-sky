@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_sglur"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_bls4j"]
 [ext_resource type="Script" uid="uid://br6kvug100k04" path="res://entities/player/scripts/movement_component.gd" id="2_fkugw"]
-[ext_resource type="PackedScene" uid="uid://bnfkgub7ybp5e" path="res://entities/player/assets/tabatha.scn" id="2_yqrof"]
+[ext_resource type="PackedScene" uid="uid://jujx1stqkidm" path="res://entities/player/assets/tabatha.scn" id="2_yqrof"]
 [ext_resource type="Script" uid="uid://d24yf8eot58mj" path="res://entities/player/scripts/camera_component.gd" id="3_8fjmc"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_fkugw"]
 [ext_resource type="PackedScene" uid="uid://2uheb5mydivy" path="res://entities/common/components/hurtbox/hurtbox.tscn" id="3_we0b7"]
@@ -245,7 +245,8 @@ unique_name_in_owner = true
 [node name="Camera3D" type="Camera3D" parent="CameraGroup/CameraPivot" unique_id=1398001316]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1.7881395e-07, 1, 0, -1, 1.7881395e-07, 0, 8, 5.364418e-07)
+transform = Transform3D(1, 0, 0, 0, 1.7881393e-07, 0.99999994, 0, -0.99999994, 1.7881393e-07, 0, 8, 5.364418e-07)
+top_level = true
 fov = 100.0
 
 [node name="PhantomCameraHost" type="Node" parent="CameraGroup/CameraPivot/Camera3D" unique_id=197406305]
@@ -268,6 +269,8 @@ auto_follow_distance = true
 vertical_rotation_offset = 1.5707963267948966
 spring_length = 3.0
 collision_mask = 2
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="PlayerUI" type="CanvasLayer" parent="." unique_id=1534802610]

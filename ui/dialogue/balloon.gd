@@ -70,9 +70,6 @@ var mutation_cooldown: Timer = Timer.new()
 ## The menu of responses
 @onready var responses_menu: DialogueResponsesMenu = %ResponsesMenu
 
-## Indicator to show that player can progress dialogue.
-@onready var progress: Polygon2D = %Progress
-
 
 func _ready() -> void:
 	balloon.hide()
@@ -89,11 +86,6 @@ func _ready() -> void:
 		if not is_instance_valid(dialogue_resource):
 			assert(false, DMConstants.get_error_message(DMConstants.ERR_MISSING_RESOURCE_FOR_AUTOSTART))
 		start()
-
-
-func _process(_delta: float) -> void:
-	if is_instance_valid(dialogue_line):
-		progress.visible = not dialogue_label.is_typing and dialogue_line.responses.size() == 0 and not dialogue_line.has_tag("voice")
 
 func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
@@ -130,7 +122,6 @@ func start(with_dialogue_resource: DialogueResource = null, with_voice: Dialogue
 func apply_dialogue_line() -> void:
 	mutation_cooldown.stop()
 
-	progress.hide()
 	is_waiting_for_input = false
 	balloon.focus_mode = Control.FOCUS_ALL
 	balloon.grab_focus()

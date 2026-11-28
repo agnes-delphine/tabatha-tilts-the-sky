@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://bxhyrs8j1tg6g"
+path="res://.godot/imported/phase_testing_dialogue_2.dialogue-892d10227911e263da731bf4374e4010.tres"
+
+[deps]
+
+source_file="res://entities/bosses/common/dialogue/phase_testing_dialogue_2.dialogue"
+dest_files=["res://.godot/imported/phase_testing_dialogue_2.dialogue-892d10227911e263da731bf4374e4010.tres"]
+
+[params]
+
+defaults=true
